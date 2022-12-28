@@ -7,11 +7,17 @@ import Layout from '@theme/Layout';
 import HomepageFeatures from '@site/src/components/HomepageFeatures';
 import CodeEditor from '@site/src/components/CodeEditor2';
 
+
+
+import useGeoLocation from "react-ipgeolocation";
+
 import { useColorMode } from '@docusaurus/theme-common';
 
 
 import { EditorView } from '@codemirror/view'; 
   
+import { Blocks } from  'react-loader-spinner'
+
 export const defaultLightThemeOption = EditorView.theme( 
   { 
     '&': { 
@@ -34,11 +40,10 @@ const languages = [
 
   {
     id: "UR",
+    code3: "urd",
+    code2: "ur",
     name: "Urdu",
     i18nName: "اردو",
-    countries: [
-      "PK",
-    ],
     direction: "rtl",
     style: {
       direction: "rtl"
@@ -46,11 +51,19 @@ const languages = [
   },
   {
     id: "HI",
+    default: true,
+    code3: "hin",
+    code2: "hi",
     name: "Hindi",
     i18nName: "Hindi",
-    countries: [
-      "IN",
-    ],
+  },
+  {
+    id: "EN",
+    // default: true,
+    code3: "eng",
+    code2: "en",
+    name: "English",
+    i18nName: "English",
   }
 ]
 
@@ -63,7 +76,9 @@ const IDE = ({basicSetup, ...props}) => {
 
 
   useEffect(() => {
-    const codingTimeoutId = setTimeout(() => setCode(editorCode), 400)
+    const codingTimeoutId = setTimeout(() => {
+      setCode(editorCode);
+    }, 400)
     return () => {
       clearTimeout(codingTimeoutId);
     }
@@ -123,17 +138,13 @@ function HomepageHeader() {
 
 const initialCodes = [
   {
+    id: "hello_world",
+    name: "Simple Hello World",
     en: `display("Hello world!")`
   },
   {
-    en: `
-things = ['💻', '📷', '🧸']
-
-for thing in things:
-  display(thing)
-`
-  },
-  {
+    id: "conditionals",
+    name: "If/Else",
     en: `
 # Convert this file to Urdu code using the --reverse flag!
 
@@ -145,26 +156,119 @@ elif something == 2:
   display ("World")
 else:
   display ("Didn't understand...")`
-  }
+  },
+  {
+    id: "loop",
+    name: "Loop",
+    en: `
+things = ['💻', '📷', '🧸']
 
+for thing in things:
+  display(thing)
+`
+  },
+{
+  id: "file_io",
+  name: "File Reading/Writing",
+  en: `with open("chad.txt", "w") as f:
+  f.write("chad")
+
+with open("chad.txt", "r") as f:
+  display(f.read())`
+}
 ]
 
 
 export default function Home() {
   const {siteConfig} = useDocusaurusContext();
   
-  const [editorCode, setEditorCode] = useState(initialCodes[2].en);
-  const [code, setCode] = useState(initialCodes[2].en);
+  const [editorCode, setEditorCode] = useState(initialCodes[0].en);
+  const [code, setCode] = useState("");
+  const [isWaitingForCode, setIsWaitingForCode] = useState(false);
+  const [isDetected, setIsDetected] = useState(false);
+
+  const {country, isLoading: isCountryLoading} = useGeoLocation();
+
+  const [sourceLanguage, setSourceLanguage] = useState(languages.find(l => l.code2 === "en"))
+  const [targetLanguage, setTargetLanguage] = useState(languages.find((l) => l.default));
 
 
   useEffect(() => {
-    const codingTimeoutId = setTimeout(() => setCode(editorCode), 400)
+    console.log(`targetLanguage: ${targetLanguage.id}`);
+  },[targetLanguage]);
+
+  useEffect(() => {
+    if (targetLanguage && !targetLanguage.default) return;
+    console.log("location: ", location)
+
+    // References:
+    // - https://www.npmjs.com/package/react-ipgeolocation
+    // - https://restcountries.com/#api-endpoints-v3-full-name
+    // - https://www.copycat.dev/blog/react-fetch/#:~:text=Fetch%20allows%20you%20to%20send,a%20full%2Dfledged%20React%20application.
+
+    if (!country) return;
+    fetch(`https://restcountries.com/v3.1/alpha/${country}?fullText=true`)
+    .then(res => res.json())
+    .then(
+      (result) => {
+        console.log("result:", result);
+        const languageCodes = languages.map((language) => language.code3);
+        const countryFirstNativeLang = Object
+          .keys(result[0].languages)
+          .filter(lang => lang !== "eng") // remove english
+          [0];
+          console.log("countryFirstNativeLang:", countryFirstNativeLang)
+          console.log("languageCodes:", languageCodes)
+
+        const _targetLanguageIndex = languageCodes
+        .findIndex(
+          lc => lc === countryFirstNativeLang
+        ) 
+        let _targetLanguage;
+        console.log("_targetLanguageIndex:", _targetLanguageIndex);
+        if (_targetLanguageIndex > -1) {
+          _targetLanguage = languages[_targetLanguageIndex];
+          setIsDetected(true);
+        } 
+        else {
+          _targetLanguage = languages[1];
+        }
+        setTargetLanguage(_targetLanguage);
+      },
+      // Note: it's important to handle errors here
+      // instead of a catch() block so that we don't swallow
+      // exceptions from actual bugs in components.
+      (error) => {
+        // this.setState({
+        //   isLoaded: true,
+        //   error
+        // });
+      }
+    )
+  }, [country]);
+
+  useEffect(() => {
+    setIsWaitingForCode(true);
+    const codingTimeoutId = setTimeout(() => {
+      setIsWaitingForCode(false);
+      setCode(editorCode);
+    }, 400)
     return () => {
+      setIsWaitingForCode(false);
       clearTimeout(codingTimeoutId);
     }
   }, [editorCode]);
 
-
+  useEffect(()=>{
+    var userLang = navigator.language || navigator.userLanguage; 
+    var _languageCode = userLang.split("-")[0];
+    console.log ("The language is: " + userLang);
+    const _targetLanguageIndex = languages.findIndex((l) => l.code2 === _languageCode);
+    if (_languageCode !== "en" && _targetLanguageIndex > -1) {
+      setTargetLanguage(languages[_targetLanguageIndex]);
+      setIsDetected(true);
+    }
+  }, []);
 
   return (
     <Layout
@@ -198,9 +302,38 @@ export default function Home() {
             setCode(e.target.value);
         }}></textarea> */}
 
+
+
 <div style={{
   padding: "80px"
 }}>
+  <select style={{
+                  flex: 1,
+                  // width: "100%",
+              margin: "12px",
+
+                }}
+                
+                onChange={(e) => {
+                  console.log("e.target.value:", e.target.value);
+                  console.log(`languages.find(l => l.id === e.target.value)`, initialCodes.find(l => l.id === e.target.value))
+                  setCode(initialCodes.find(l => l.id === e.target.value).en);
+                }}
+                value={initialCodes.find(c => {
+                  console.log("c.en === code:", c.en === code);
+                  return c.en === code
+                })?.id || "custom"}
+                key={code}
+                >
+                  {
+                    initialCodes.map((l, idx) => {
+                      return (
+                        <option value={l.id}>{l.name}</option>
+                      )
+                    })
+                  }
+                  <option value="custom">Custom</option>
+</select>
 <div style={{
   display: "flex",
   flexDirection: "row",
@@ -209,13 +342,27 @@ export default function Home() {
               style={{
                 flex: 1,
               }}>
-<select style={{
-  flex: 1,
-  // width: "100%",
+   <select style={{
+                  flex: 1,
+                  // width: "100%",
               margin: "12px",
 
-}}>
-  <option>English</option>
+                }}
+                
+                onChange={(e) => {
+                  console.log("e.target.value:", e.target.value);
+                  console.log(`languages.find(l => l.id === e.target.value)`, languages.find(l => l.id === e.target.value))
+                  setSourceLanguage(languages.find(l => l.id === e.target.value));
+                }}
+                value={sourceLanguage?.id}
+                >
+                  {
+                    languages.map((l, idx) => {
+                      return (
+                        <option value={l.id}>{l.name}</option>
+                      )
+                    })
+                  }
 </select>
 <IDE id="python-code-editor1"
     value={code}
@@ -240,13 +387,29 @@ export default function Home() {
               style={{
                 flex: 1,
               }}>
+
                 <select style={{
                   flex: 1,
                   // width: "100%",
               margin: "12px",
 
-                }}>
-  <option>Urdu - detected</option>
+                }}
+                
+                onChange={(e) => {
+                  console.log("e.target.value:", e.target.value);
+                  console.log(`languages.find(l => l.id === e.target.value)`, languages.find(l => l.id === e.target.value))
+                  setTargetLanguage(languages.find(l => l.id === e.target.value));
+                  setIsDetected(false);
+                }}
+                value={targetLanguage?.id}
+                >
+                  {
+                    languages.map((l, idx) => {
+                      return (
+                        <option value={l.id}>{l.name} {targetLanguage?.id === l.id ? isDetected ? " - detected" : "" : ""}</option>
+                      )
+                    })
+                  }
 </select>
 <IDE
             id="python-code-editor"
@@ -271,13 +434,12 @@ export default function Home() {
               fontFamily: "Hack, 'Courier New', monospaced",
               fontSize: "1.15rem",
               // textAlign: "right",
-              direction: "rtl",
+              direction: targetLanguage?.direction || "ltr",
 
               margin: "12px",
               borderRadius: "8px",
               overflow: "hidden",
-              opacity: 0.97
-
+              opacity: isWaitingForCode ? 0.5 : 0.97,
             }}
             readOnly={true}
             // background={'#000fff'}
@@ -306,6 +468,10 @@ display(now.strftime("%m/%d/%Y, %H:%M:%S"))
           color: "whitesmoke",
           marginTop: "20px",
           overflow: "hidden",
+          opacity: isWaitingForCode ? 0.76 : 1,
+          pointerEvents: isWaitingForCode ? "none" : "auto",
+          transition: "0.4s ease-in-out",
+          // transitionDelay: "0.2s",
       }}>
         <div style={{
           textTransform: "uppercase",
@@ -313,9 +479,23 @@ display(now.strftime("%m/%d/%Y, %H:%M:%S"))
           fontSize: "0.8rem",
           letterSpacing: "0.1rem",
           padding: "12px 24px",
+          height: "44px",
           marginBottom: "12px",
           background: "black",
-        }}>Output</div>
+          alignItems: "center",
+          flexDirection: "row",
+          justifyContent: "center",
+        }}> <Blocks
+        visible={isWaitingForCode}
+        height="14"
+        width={isWaitingForCode ? "14" : "0"}
+        ariaLabel="blocks-loading"
+        wrapperStyle={{
+          paddingTop: "4px",
+          transition: "0.2s",
+        }}
+        wrapperClass="blocks-wrapper"
+      /> {isWaitingForCode ? "Waiting for you to stop typing..." : "Output"}</div>
         <div style={{
         }}>
   
