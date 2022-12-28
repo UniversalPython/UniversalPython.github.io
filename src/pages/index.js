@@ -260,6 +260,7 @@ export default function Home() {
   }, [editorCode]);
 
   useEffect(()=>{
+    // https://stackoverflow.com/questions/8199760/how-to-get-the-browser-language-using-javascript
     var userLang = navigator.language || navigator.userLanguage; 
     var _languageCode = userLang.split("-")[0];
     console.log ("The language is: " + userLang);
