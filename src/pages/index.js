@@ -145,10 +145,7 @@ const initialCodes = [
   {
     id: "conditionals",
     name: "If/Else",
-    en: `
-# Convert this file to Urdu code using the --reverse flag!
-
-something = 2
+    en: `something = 2
 
 if something == 1:
   display ("Hello")
@@ -160,8 +157,7 @@ else:
   {
     id: "loop",
     name: "Loop",
-    en: `
-things = ['💻', '📷', '🧸']
+    en: `things = ['💻', '📷', '🧸']
 
 for thing in things:
   display(thing)
