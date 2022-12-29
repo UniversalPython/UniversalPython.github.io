@@ -45,6 +45,7 @@ const languages = [
     name: "Urdu",
     i18nName: "اردو",
     direction: "rtl",
+    fontFamily: "'Kawkab Mono'",
     style: {
       direction: "rtl"
     }
@@ -64,13 +65,15 @@ const languages = [
     code2: "en",
     name: "English",
     i18nName: "English",
+    fontFamily: "'Hack', 'Courier New', monospaced"
   }
 ]
 
 
 const IDE = ({basicSetup, ...props}) => {
 
-  const { isDarkTheme } = useColorMode();
+  const { colorMode } = useColorMode();
+  const isDarkTheme = colorMode === "dark";
   const [editorCode, setEditorCode] = useState(initialCodes[1].en);
   const [code, setCode] = useState(initialCodes[1].en);
 
@@ -140,7 +143,7 @@ const initialCodes = [
   {
     id: "hello_world",
     name: "Simple Hello World",
-    en: `display("Hello world!")`
+    en: `print("Hello world!")`
   },
   {
     id: "conditionals",
@@ -148,11 +151,11 @@ const initialCodes = [
     en: `something = 2
 
 if something == 1:
-  display ("Hello")
+  print ("Hello")
 elif something == 2:
-  display ("World")
+  print ("World")
 else:
-  display ("Didn't understand...")`
+  print ("Didn't understand...")`
   },
   {
     id: "loop",
@@ -160,7 +163,7 @@ else:
     en: `things = ['💻', '📷', '🧸']
 
 for thing in things:
-  display(thing)
+  print(thing)
 `
   },
 {
@@ -170,7 +173,7 @@ for thing in things:
   f.write("chad")
 
 with open("chad.txt", "r") as f:
-  display(f.read())`
+  print(f.read())`
 }
 ]
 
@@ -180,6 +183,9 @@ export default function Home() {
   
   const [editorCode, setEditorCode] = useState(initialCodes[0].en);
   const [code, setCode] = useState("");
+  
+  const [outputCode, setOutputCode] = useState("");
+  
   const [isWaitingForCode, setIsWaitingForCode] = useState(false);
   const [isDetected, setIsDetected] = useState(false);
 
@@ -188,6 +194,18 @@ export default function Home() {
   const [sourceLanguage, setSourceLanguage] = useState(languages.find(l => l.code2 === "en"))
   const [targetLanguage, setTargetLanguage] = useState(languages.find((l) => l.default));
 
+  const dummyOutputTerminal = document.getElementById("dummy-output-terminal");
+
+  useEffect(() => {
+    if (!dummyOutputTerminal) return;
+    
+    dummyOutputTerminal.addEventListener("change", (e) => {
+      console.log("e.target.value", e.target.value);
+      setOutputCode(e.target.value);
+    })
+    // console.log("dummyOutputTerminal:", dummyOutputTerminal.innerHTML)
+    // setTimeout(() => setOutputCode(document.getElementById("dummy-output-terminal").innerHTML), 400);
+  })
 
   useEffect(() => {
     console.log(`targetLanguage: ${targetLanguage.id}`);
@@ -372,11 +390,13 @@ export default function Home() {
     fontSize={"1rem"}
     style={{
       flex: "1 1 auto",
-      fontFamily: "Hack, 'Courier New', monospaced",
+      fontFamily: sourceLanguage?.fontFamily || "Hack, 'Courier New', monospaced",
       fontSize: "1.15rem",
       margin: "12px",
       borderRadius: "8px",
       overflow: "hidden",
+      direction: sourceLanguage?.direction || "ltr",
+
     }}
     />
   </div>
@@ -409,15 +429,15 @@ export default function Home() {
                   }
 </select>
 <IDE
-            id="python-code-editor"
-            value={code
-              .replaceAll("display", "دکھاو")
-              .replaceAll("things", "چیزیں")
-              .replaceAll("thing", "چیز")
-              .replaceAll("for", "ہر")
-              .replaceAll("in", "اندر")
-              .replaceAll(":", ":")            
-            }
+            id="python-code-editor2"
+            // value={code
+            //   .replaceAll("display", "دکھاو")
+            //   .replaceAll("things", "چیزیں")
+            //   .replaceAll("thing", "چیز")
+            //   .replaceAll("for", "ہر")
+            //   .replaceAll("in", "اندر")
+            //   .replaceAll(":", ":")            
+            // }
             mode="python"
             // theme="monokai"
             // onChange={text => setEditorCode(text)}
@@ -432,11 +452,14 @@ export default function Home() {
               fontSize: "1.15rem",
               // textAlign: "right",
               direction: targetLanguage?.direction || "ltr",
-
+              fontFamily: targetLanguage?.fontFamily || undefined,
               margin: "12px",
               borderRadius: "8px",
-              overflow: "hidden",
+              height: "200px",
+              overflow: "auto",
+              // height: "100%",
               opacity: isWaitingForCode ? 0.5 : 0.97,
+              whiteSpace: "nowrap"
             }}
             readOnly={true}
             // background={'#000fff'}
@@ -523,17 +546,93 @@ packages = [
     </py-config> */}
 
 {/* <py-env>{`- universalpython`}</py-env> */}
-        <py-script style={{
+        <py-script 
+        id="output-terminal"
+        style={{
           fontFamily: "Hack, 'Courier New', monospaced",
           marginBottom: "1rem",
           display: "flex",
           flexDirection: "column",
-          overflowY: "scroll",  
+          overflowY: "auto",  
           maxHeight: "300px",
           padding: "12px 18px 0px",
         }} key={code}>
-{code.toString()}
+{`
+from urdupython import (run_module, SCRIPTDIR);
+from js import document;
+import os;
+import sys;
+
+original_code = """${code.toString()}""";
+with open('file', 'w') as sys.stdout:
+  english_code = run_module(
+    mode="lex", 
+    code=original_code,
+    args={
+              'translate': True,
+              'dictionary': os.path.join(SCRIPTDIR, 'languages/ur/ur_native.lang.yaml'),
+              'reverse': False,
+              'keep': False,         
+              'keep_only': False,
+              'return': True,
+    }
+  );
+  # display(english_code);
+  print = display
+  exec(english_code);
+  
+  translated_code = run_module(
+    mode="lex", 
+    code=english_code,
+    args={
+              'translate': True,
+              'dictionary': os.path.join(SCRIPTDIR, 'languages/ur/ur_native.lang.yaml'),
+              'reverse': False,
+              'keep': False,         
+              'keep_only': False,
+              'return': True,
+    }
+  );
+  # display(translated_code)
+  # code = code.replace("print", "display");
+  element = document.getElementById("python-code-editor2");
+  # display(element.innerHTML)
+  element.innerHTML = translated_code.replace("\\n", "<br/>").replace(" ", "&nbsp;")
+  # .replace(" ", "&nbsp;");
+
+  `
+  
+  }
         </py-script>
+
+        {/* <input id="dummy-output-terminal" /> */}
+        {/* 
+
+
+        <py-script key={code}>{`
+from urdupython import (run_module, SCRIPTDIR);
+import os;
+import sys;
+with open('file', 'w') as sys.stdout:
+  code = run_module(
+    mode="lex", 
+    code="""${code.toString()}""",
+    args={
+              'translate': False,
+              'dictionary': os.path.join(SCRIPTDIR, 'languages/ur/ur_native.lang.yaml'),
+              'reverse': False,
+              'keep': False,         
+              'keep_only': False,
+              'return': True,
+    }
+  );
+  display(code);
+  eval(code);
+#  element = document.getElementById("dummy-output-terminal");
+ # element.value = code;
+`
+}
+        </py-script> */}
           </div>
 
         </div>
