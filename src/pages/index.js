@@ -18,6 +18,9 @@ import { EditorView } from '@codemirror/view';
   
 import { Blocks } from  'react-loader-spinner'
 
+import useIsBrowser from '@docusaurus/useIsBrowser';
+
+
 export const defaultLightThemeOption = EditorView.theme( 
   { 
     '&': { 
@@ -197,7 +200,10 @@ export default function Home() {
   const [sourceLanguage, setSourceLanguage] = useState(languages.find(l => l.code2 === "en"))
   const [targetLanguage, setTargetLanguage] = useState(languages.find((l) => l.default));
 
-  const dummyOutputTerminal = document.getElementById("dummy-output-terminal");
+
+  const isBrowser = useIsBrowser();
+
+  const dummyOutputTerminal = isBrowser && document.getElementById("dummy-output-terminal");
 
   useEffect(() => {
     if (!dummyOutputTerminal) return;
