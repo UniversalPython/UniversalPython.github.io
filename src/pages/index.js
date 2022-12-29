@@ -46,6 +46,7 @@ const languages = [
     i18nName: "اردو",
     direction: "rtl",
     fontFamily: "'Kawkab Mono'",
+    toEnglishDict: "'languages/ur/ur_native.lang.yaml'",
     style: {
       direction: "rtl"
     }
@@ -57,6 +58,8 @@ const languages = [
     code2: "hi",
     name: "Hindi",
     i18nName: "Hindi",
+    fontFamily: "'Hack', 'Courier New', monospaced",
+    toEnglishDict: "'languages/hi/hi_native.lang.yaml'",
   },
   {
     id: "EN",
@@ -65,7 +68,7 @@ const languages = [
     code2: "en",
     name: "English",
     i18nName: "English",
-    fontFamily: "'Hack', 'Courier New', monospaced"
+    fontFamily: "'Hack', 'Courier New', monospaced",
   }
 ]
 
@@ -400,6 +403,18 @@ export default function Home() {
     }}
     />
   </div>
+
+  <button style={{
+    opacity: 0.45
+  }} onClick={()=>{
+    setTargetLanguage(sourceLanguage);
+    setSourceLanguage(targetLanguage);
+    var element = document.getElementById("python-code-editor2");
+    setCode(element.innerHTML.replaceAll("<br>", "\n").replaceAll("&nbsp;", " "))
+  }}>
+  &#8660;
+  </button>
+
   <div
               style={{
                 flex: 1,
@@ -556,7 +571,7 @@ packages = [
           overflowY: "auto",  
           maxHeight: "300px",
           padding: "12px 18px 0px",
-        }} key={code}>
+        }} key={code+"_"+sourceLanguage.id+"_"+targetLanguage.id}>
 {`
 from urdupython import (run_module, SCRIPTDIR);
 from js import document;
@@ -565,34 +580,34 @@ import sys;
 
 original_code = """${code.toString()}""";
 with open('file', 'w') as sys.stdout:
-  english_code = run_module(
+  english_code = ${sourceLanguage.id === "EN" ? `original_code;` : `run_module(
     mode="lex", 
     code=original_code,
     args={
               'translate': True,
-              'dictionary': os.path.join(SCRIPTDIR, 'languages/ur/ur_native.lang.yaml'),
+              'dictionary': os.path.join(SCRIPTDIR, ${sourceLanguage.toEnglishDict}),
               'reverse': False,
               'keep': False,         
               'keep_only': False,
               'return': True,
     }
-  );
+  );`}
   # display(english_code);
-  print = display
+  print = display;
   exec(english_code);
   
-  translated_code = run_module(
+  translated_code = ${targetLanguage.id === "EN" ? `english_code;` : `run_module(
     mode="lex", 
     code=english_code,
     args={
               'translate': True,
-              'dictionary': os.path.join(SCRIPTDIR, 'languages/ur/ur_native.lang.yaml'),
-              'reverse': False,
+              'dictionary': os.path.join(SCRIPTDIR, ${targetLanguage.toEnglishDict}),
+              'reverse': True,
               'keep': False,         
               'keep_only': False,
               'return': True,
     }
-  );
+  );`}
   # display(translated_code)
   # code = code.replace("print", "display");
   element = document.getElementById("python-code-editor2");
