@@ -24,18 +24,19 @@ const config = {
   // to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: 'en',
-    locales: ['en', 'fr', 'ur'],
-    localeConfigs: {
-      en: {
-        label: 'English',
-      },
-      fr: {
-        label: 'Français',
-      },
-      ur: {
-        label: 'Urdu',
-      },
-    },
+    locales: ['en']
+    // , 'fr', 'ur'],
+    // localeConfigs: {
+    //   en: {
+    //     label: 'English',
+    //   },
+    //   fr: {
+    //     label: 'Français',
+    //   },
+    //   ur: {
+    //     label: 'Urdu',
+    //   },
+    // },
   },
 
   presets: [
@@ -86,10 +87,10 @@ const config = {
             label: 'GitHub',
             position: 'right',
           },
-              {
-                type: 'localeDropdown',
-                position: 'left',
-              },
+              // {
+              //   type: 'localeDropdown',
+              //   position: 'left',
+              // },
         ],
       },
       footer: {
