@@ -7,13 +7,11 @@
 
 
 
+ @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400&display=swap');
 
- @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300&display=swap');
 /* You can override the default Infima variables here. */
 :root {
-    /* --ifm-font-family-base: "Roboto Mono";   */
-    /* --ifm-font-family-mono: "Robot Mono";   */
-  /* --ifm-font-family-mono: "Roboto Mono"; */
+    
   --ifm-color-primary: #2e8555;
   --ifm-color-primary-dark: #29784c;
   --ifm-color-primary-darker: #277148;

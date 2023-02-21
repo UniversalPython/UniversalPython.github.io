@@ -7,21 +7,10 @@ import Layout from '@theme/Layout';
 import HomepageFeatures from '@site/src/components/HomepageFeatures';
 import CodeEditor from '@site/src/components/CodeEditor2';
 import { Box,TextField,MenuItem } from '@mui/material';
-import Select, { SelectChangeEvent } from '@mui/material/Select'
-
-
-
-
-
 import useGeoLocation from "react-ipgeolocation";
-
 import { useColorMode } from '@docusaurus/theme-common';
-
-
-import { EditorView } from '@codemirror/view'; 
-  
+import { EditorView } from '@codemirror/view';  
 import { Blocks } from  'react-loader-spinner'
-
 import useIsBrowser from '@docusaurus/useIsBrowser';
 
 
@@ -43,7 +32,7 @@ export const defaultLightThemeOption = EditorView.theme(
 import styles from './index.module.css';
 import { height } from '@mui/system';
 
-
+//Array of Languages on right side of code editor
 const languages = [
 
   {
@@ -55,8 +44,9 @@ const languages = [
     direction: "rtl",
     fontFamily: "'Roboto Mono'",
     toEnglishDict: "'languages/ur/ur_native.lang.yaml'",
+    fontWeights: "bold",
     style: {
-      fontWeight: "bold",
+      
       direction: "rtl"
     }
   },
@@ -67,17 +57,18 @@ const languages = [
     code2: "hi",
     name: "Hindi",
     i18nName: "Hindi",
-    fontFamily: "'Hack', 'Courier New', monospaced",
+    fontFamily: "'Roboto Mono'",
+    
     toEnglishDict: "'languages/hi/hi_native.lang.yaml'",
   },
   {
     id: "EN",
-    // default: true,
     code3: "eng",
     code2: "en",
     name: "English",
     i18nName: "English",
-    fontFamily: "'Hack', 'Courier New', monospaced",
+    fontFamily: "'Roboto Mono'",
+    
   }
 ]
 
@@ -339,15 +330,15 @@ export default function Home() {
                                             ***********************************************
                                             *********************************************** */}
 
-<div style={{
-  padding: "80px"
-  
-}}>
+            <div style={{
+              padding: "80px"
+              
+            }}>
 
 
 
   <Box width="250px">
-  <TextField select fullWidth label="Select preset"  onChange={(e) => {
+  <TextField select fullWidth label="Select Preset"  onChange={(e) => {
                   console.log("e.target.value:", e.target.value);
                   console.log(`languages.find(l => l.id === e.target.value)`, initialCodes.find(l => l.id === e.target.value))
                   setCode(initialCodes.find(l => l.id === e.target.value).en);
@@ -367,54 +358,24 @@ export default function Home() {
                   } 
                   <MenuItem value="custom">Custom</MenuItem>
    </TextField>
-  
   </Box>
   
-
+                                            {/* *****************************************
+                                             ********DIV FOR THE LANGUAGE SECTION**********
+                                            ***********************************************
+                                            ************************************************/}
   
  
-  {/* <select style={{
-                  flex: 1,
-              //   //  width: "100%",
-              margin: "12px",
-
-
-              
-              
-
-                }}
-                
-                onChange={(e) => {
-                  console.log("e.target.value:", e.target.value);
-                  console.log(`languages.find(l => l.id === e.target.value)`, initialCodes.find(l => l.id === e.target.value))
-                  setCode(initialCodes.find(l => l.id === e.target.value).en);
-                }}
-                value={initialCodes.find(c => {
-                  console.log("c.en === code:", c.en === code);
-                  return c.en === code
-                })?.id || "custom"}
-                key={code}
-                >
-                  {
-                    initialCodes.map((l, idx) => {
-                      return (
-                        <option value={l.id}>{l.name}</option>
-                      )
-                    })
-                  }
-                  <option value="custom">Custom</option>
-</select> */}
-<div style={{
-  display: "flex",
-  flexDirection: "row",
-  marginTop: "12px",
-}}>
-  <div
+        <div style={{
+          display: "flex",
+          flexDirection: "row",
+          marginTop: "12px",
+        }}>
+            <div
               style={{
                 flex: 1,
               }}>
 
-                  {/* **************************Language*********************************** */}
               <Box width="250px">
                 <TextField label="Select Language"fullWidth select onChange={(e) => {
                   console.log("e.target.value:", e.target.value);
@@ -434,28 +395,6 @@ export default function Home() {
                 </TextField>
               </Box>
 
-   {/* <select style={{
-                  flex: 1,
-                  // width: "100%",
-              margin: "12px",
-
-                }}
-                
-                onChange={(e) => {
-                  console.log("e.target.value:", e.target.value);
-                  console.log(`languages.find(l => l.id === e.target.value)`, languages.find(l => l.id === e.target.value))
-                  setSourceLanguage(languages.find(l => l.id === e.target.value));
-                }}
-                value={sourceLanguage?.id}
-                >
-                  {
-                    languages.map((l, idx) => {
-                      return (
-                        <option value={l.id}>{l.name}</option>
-                      )
-                    })
-                  }
-</select> */}
 <IDE id="python-code-editor1"
     value={code}
     mode="python"
@@ -497,7 +436,7 @@ export default function Home() {
   &#8644;
   </button>
 
-  <div
+            <div
               style={{
                 flex: 1,
                 marginLeft: "12px",
@@ -512,7 +451,7 @@ export default function Home() {
                 }}
                 value={targetLanguage?.id}
                  >
-              {
+                {
                     languages.map((l, idx) => {
                       return (
                         <MenuItem value={l.id}>{l.name} {targetLanguage?.id === l.id ? isDetected ? " - detected" : "" : ""}</MenuItem>
@@ -522,29 +461,6 @@ export default function Home() {
     </TextField>
   </Box>
 
-{/* <select style={{
-                  flex: 1,
-                  // width: "100%",
-              margin: "12px",
-
-                }}
-                
-                onChange={(e) => {
-                  console.log("e.target.value:", e.target.value);
-                  console.log(`languages.find(l => l.id === e.target.value)`, languages.find(l => l.id === e.target.value))
-                  setTargetLanguage(languages.find(l => l.id === e.target.value));
-                  setIsDetected(false);
-                }}
-                value={targetLanguage?.id}
-                >
-                  {
-                    languages.map((l, idx) => {
-                      return (
-                        <option value={l.id}>{l.name} {targetLanguage?.id === l.id ? isDetected ? " - detected" : "" : ""}</option>
-                      )
-                    })
-                  }
-</select> */}
 <IDE
             id="python-code-editor2"
             // value={code
