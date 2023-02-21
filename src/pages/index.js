@@ -6,6 +6,10 @@ import Head from '@docusaurus/Head';
 import Layout from '@theme/Layout';
 import HomepageFeatures from '@site/src/components/HomepageFeatures';
 import CodeEditor from '@site/src/components/CodeEditor2';
+import { Box,TextField,MenuItem } from '@mui/material';
+import Select, { SelectChangeEvent } from '@mui/material/Select'
+
+
 
 
 
@@ -37,6 +41,7 @@ export const defaultLightThemeOption = EditorView.theme(
 
 
 import styles from './index.module.css';
+import { height } from '@mui/system';
 
 
 const languages = [
@@ -48,9 +53,10 @@ const languages = [
     name: "Urdu",
     i18nName: "اردو",
     direction: "rtl",
-    fontFamily: "'Kawkab Mono'",
+    fontFamily: "'Roboto Mono'",
     toEnglishDict: "'languages/ur/ur_native.lang.yaml'",
     style: {
+      fontWeight: "bold",
       direction: "rtl"
     }
   },
@@ -126,6 +132,7 @@ const IDE = ({basicSetup, ...props}) => {
 }
 
 function HomepageHeader() {
+  
   const {siteConfig} = useDocusaurusContext();
   return (
     <header className={clsx('hero hero--primary', styles.heroBanner)}>
@@ -148,7 +155,7 @@ function HomepageHeader() {
 const initialCodes = [
   {
     id: "hello_world",
-    name: "Simple Hello World",
+    name: " Simple Hello World",
     en: `print("Hello world!")`
   },
   {
@@ -327,14 +334,53 @@ export default function Home() {
         }}></textarea> */}
 
 
+                                             {/* *****************************************
+                                             ********DIV FOR THE TOP SECTION**************
+                                            ***********************************************
+                                            *********************************************** */}
 
 <div style={{
   padding: "80px"
+  
 }}>
-  <select style={{
+
+
+
+  <Box width="250px">
+  <TextField select fullWidth label="Select preset"  onChange={(e) => {
+                  console.log("e.target.value:", e.target.value);
+                  console.log(`languages.find(l => l.id === e.target.value)`, initialCodes.find(l => l.id === e.target.value))
+                  setCode(initialCodes.find(l => l.id === e.target.value).en);
+                }}
+                value={initialCodes.find(c => {
+                  console.log("c.en === code:", c.en === code);
+                  return c.en === code
+                })?.id || "custom"}
+                key={code}
+                >
+                 {
+                    initialCodes.map((l, idx) => {
+                      return (
+                        <MenuItem value={l.id}>{l.name}</MenuItem>
+                      )
+                    })
+                  } 
+                  <MenuItem value="custom">Custom</MenuItem>
+   </TextField>
+  
+  </Box>
+  
+
+  
+ 
+  {/* <select style={{
                   flex: 1,
-                  // width: "100%",
+              //   //  width: "100%",
               margin: "12px",
+
+
+              
+              
 
                 }}
                 
@@ -357,16 +403,38 @@ export default function Home() {
                     })
                   }
                   <option value="custom">Custom</option>
-</select>
+</select> */}
 <div style={{
   display: "flex",
   flexDirection: "row",
+  marginTop: "12px",
 }}>
   <div
               style={{
                 flex: 1,
               }}>
-   <select style={{
+
+                  {/* **************************Language*********************************** */}
+              <Box width="250px">
+                <TextField label="Select Language"fullWidth select onChange={(e) => {
+                  console.log("e.target.value:", e.target.value);
+                  console.log(`languages.find(l => l.id === e.target.value)`, languages.find(l => l.id === e.target.value))
+                  setSourceLanguage(languages.find(l => l.id === e.target.value));
+                }}
+                value={sourceLanguage?.id}
+                >
+                 {
+                    languages.map((l, idx) => {
+                      return (
+                        <MenuItem value={l.id}>{l.name}</MenuItem>
+                      )
+                    })
+                  }
+                  
+                </TextField>
+              </Box>
+
+   {/* <select style={{
                   flex: 1,
                   // width: "100%",
               margin: "12px",
@@ -387,7 +455,7 @@ export default function Home() {
                       )
                     })
                   }
-</select>
+</select> */}
 <IDE id="python-code-editor1"
     value={code}
     mode="python"
@@ -410,23 +478,51 @@ export default function Home() {
     />
   </div>
 
+    {/* IDE convertor button */}
   <button style={{
-    opacity: 0.45
+    opacity: 0.45,
+     height:"100%",
+     backgroundColor: "transparent",
+      border: "none",
+      cursor: "pointer",
+      width: "5%",
+      fontSize: "1.5rem",  
   }} onClick={()=>{
     setTargetLanguage(sourceLanguage);
     setSourceLanguage(targetLanguage);
     var element = document.getElementById("python-code-editor2");
     setCode(element.innerHTML.replaceAll("<br>", "\n").replaceAll("&nbsp;", " "))
   }}>
-  &#8660;
+  {/* &#8660; */}
+  &#8644;
   </button>
 
   <div
               style={{
                 flex: 1,
+                marginLeft: "12px",
               }}>
+  
+  <Box width="250px">
+    <TextField select label="Select Language" fullWidth onChange={(e) => {
+                  console.log("e.target.value:", e.target.value);
+                  console.log(`languages.find(l => l.id === e.target.value)`, languages.find(l => l.id === e.target.value))
+                  setTargetLanguage(languages.find(l => l.id === e.target.value));
+                  setIsDetected(false);
+                }}
+                value={targetLanguage?.id}
+                 >
+              {
+                    languages.map((l, idx) => {
+                      return (
+                        <MenuItem value={l.id}>{l.name} {targetLanguage?.id === l.id ? isDetected ? " - detected" : "" : ""}</MenuItem>
+                      )
+                    })
+                  }
+    </TextField>
+  </Box>
 
-                <select style={{
+{/* <select style={{
                   flex: 1,
                   // width: "100%",
               margin: "12px",
@@ -448,7 +544,7 @@ export default function Home() {
                       )
                     })
                   }
-</select>
+</select> */}
 <IDE
             id="python-code-editor2"
             // value={code
