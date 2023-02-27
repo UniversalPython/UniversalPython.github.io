@@ -6,19 +6,14 @@ import Head from '@docusaurus/Head';
 import Layout from '@theme/Layout';
 import HomepageFeatures from '@site/src/components/HomepageFeatures';
 import CodeEditor from '@site/src/components/CodeEditor2';
-
-
-
+import { Box,TextField,MenuItem } from '@mui/material';
 import useGeoLocation from "react-ipgeolocation";
-
 import { useColorMode } from '@docusaurus/theme-common';
-
-
-import { EditorView } from '@codemirror/view'; 
-  
+import { EditorView } from '@codemirror/view';  
 import { Blocks } from  'react-loader-spinner'
-
 import useIsBrowser from '@docusaurus/useIsBrowser';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
 
 
 export const defaultLightThemeOption = EditorView.theme( 
@@ -37,8 +32,9 @@ export const defaultLightThemeOption = EditorView.theme(
 
 
 import styles from './index.module.css';
+import { height } from '@mui/system';
 
-
+//Array of Languages on right side of code editor
 const languages = [
 
   {
@@ -48,9 +44,11 @@ const languages = [
     name: "Urdu",
     i18nName: "اردو",
     direction: "rtl",
-    fontFamily: "'Kawkab Mono'",
+    fontFamily: "'Roboto Mono'",
     toEnglishDict: "'languages/ur/ur_native.lang.yaml'",
+    fontWeights: "bold",
     style: {
+      
       direction: "rtl"
     }
   },
@@ -61,17 +59,18 @@ const languages = [
     code2: "hi",
     name: "Hindi",
     i18nName: "Hindi",
-    fontFamily: "'Hack', 'Courier New', monospaced",
+    fontFamily: "'Roboto Mono'",
+    
     toEnglishDict: "'languages/hi/hi_native.lang.yaml'",
   },
   {
     id: "EN",
-    // default: true,
     code3: "eng",
     code2: "en",
     name: "English",
     i18nName: "English",
-    fontFamily: "'Hack', 'Courier New', monospaced",
+    fontFamily: "'Roboto Mono'",
+    
   }
 ]
 
@@ -126,6 +125,7 @@ const IDE = ({basicSetup, ...props}) => {
 }
 
 function HomepageHeader() {
+  
   const {siteConfig} = useDocusaurusContext();
   return (
     <header className={clsx('hero hero--primary', styles.heroBanner)}>
@@ -148,7 +148,7 @@ function HomepageHeader() {
 const initialCodes = [
   {
     id: "hello_world",
-    name: "Simple Hello World",
+    name: " Simple Hello World",
     en: `print("Hello world!")`
   },
   {
@@ -185,6 +185,9 @@ with open("chad.txt", "r") as f:
 
 
 export default function Home() {
+
+
+
   const {siteConfig} = useDocusaurusContext();
   
   const [editorCode, setEditorCode] = useState(initialCodes[0].en);
@@ -316,6 +319,9 @@ export default function Home() {
 
 
       </Head>
+
+      <MaterialThemeWrapper>
+
       <HomepageHeader />
       <main>
         {/* <textarea  style={{
@@ -327,21 +333,26 @@ export default function Home() {
         }}></textarea> */}
 
 
+                                             {/* *****************************************
+                                             ********DIV FOR THE TOP SECTION**************
+                                            ***********************************************
+                                            *********************************************** */}
 
-<div style={{
-  padding: "80px"
-}}>
-  <select style={{
-                  flex: 1,
-                  // width: "100%",
-              margin: "12px",
+            <div style={{
+              padding: "80px"
+              
+            }}>
 
-                }}
-                
-                onChange={(e) => {
+
+
+  <Box width="250px">
+  <TextField select fullWidth label="Choose Preset"  onChange={(e) => {
                   console.log("e.target.value:", e.target.value);
                   console.log(`languages.find(l => l.id === e.target.value)`, initialCodes.find(l => l.id === e.target.value))
                   setCode(initialCodes.find(l => l.id === e.target.value).en);
+                }}
+                style={{
+                  marginLeft: "0.7rem"
                 }}
                 value={initialCodes.find(c => {
                   console.log("c.en === code:", c.en === code);
@@ -349,45 +360,55 @@ export default function Home() {
                 })?.id || "custom"}
                 key={code}
                 >
-                  {
+                 {
                     initialCodes.map((l, idx) => {
                       return (
-                        <option value={l.id}>{l.name}</option>
+                        <MenuItem value={l.id}>{l.name}</MenuItem>
                       )
                     })
-                  }
-                  <option value="custom">Custom</option>
-</select>
-<div style={{
-  display: "flex",
-  flexDirection: "row",
-}}>
-  <div
+                  } 
+                  <MenuItem value="custom">Custom</MenuItem>
+   </TextField>
+  </Box>
+  
+                                            {/* *****************************************
+                                             ********DIV FOR THE LANGUAGE SECTION**********
+                                            ***********************************************
+                                            ************************************************/}
+  
+ 
+        <div style={{
+          display: "flex",
+          flexDirection: "row",
+          marginTop: "12px",
+        }}>
+            <div
               style={{
                 flex: 1,
               }}>
-   <select style={{
-                  flex: 1,
-                  // width: "100%",
-              margin: "12px",
 
-                }}
-                
-                onChange={(e) => {
+              <Box width="250px">
+                <TextField label="From" fullWidth select onChange={(e) => {
                   console.log("e.target.value:", e.target.value);
                   console.log(`languages.find(l => l.id === e.target.value)`, languages.find(l => l.id === e.target.value))
                   setSourceLanguage(languages.find(l => l.id === e.target.value));
                 }}
+                style={{
+                  marginLeft: "0.7rem"
+                }}
                 value={sourceLanguage?.id}
                 >
-                  {
+                 {
                     languages.map((l, idx) => {
                       return (
-                        <option value={l.id}>{l.name}</option>
+                        <MenuItem value={l.id}>{l.name}</MenuItem>
                       )
                     })
                   }
-</select>
+                  
+                </TextField>
+              </Box>
+
 <IDE id="python-code-editor1"
     value={code}
     mode="python"
@@ -410,45 +431,53 @@ export default function Home() {
     />
   </div>
 
+    {/* IDE convertor button */}
   <button style={{
-    opacity: 0.45
+    opacity: 0.45,
+     height:"100%",
+     backgroundColor: "transparent",
+      border: "none",
+      cursor: "pointer",
+      width: "5%",
+      fontSize: "1.5rem",  
   }} onClick={()=>{
     setTargetLanguage(sourceLanguage);
     setSourceLanguage(targetLanguage);
     var element = document.getElementById("python-code-editor2");
     setCode(element.innerHTML.replaceAll("<br>", "\n").replaceAll("&nbsp;", " "))
   }}>
-  &#8660;
+  {/* &#8660; */}
+  &#8644;
   </button>
 
-  <div
+            <div
               style={{
                 flex: 1,
+                marginLeft: "12px",
               }}>
-
-                <select style={{
-                  flex: 1,
-                  // width: "100%",
-              margin: "12px",
-
-                }}
-                
-                onChange={(e) => {
+  
+  <Box width="250px">
+    <TextField select label="To" fullWidth onChange={(e) => {
                   console.log("e.target.value:", e.target.value);
                   console.log(`languages.find(l => l.id === e.target.value)`, languages.find(l => l.id === e.target.value))
                   setTargetLanguage(languages.find(l => l.id === e.target.value));
                   setIsDetected(false);
                 }}
+                style={{
+                  marginLeft: "0.7rem"
+                }}
                 value={targetLanguage?.id}
-                >
-                  {
+                 >
+                {
                     languages.map((l, idx) => {
                       return (
-                        <option value={l.id}>{l.name} {targetLanguage?.id === l.id ? isDetected ? " - detected" : "" : ""}</option>
+                        <MenuItem value={l.id}>{l.name} {targetLanguage?.id === l.id ? isDetected ? " - detected" : "" : ""}</MenuItem>
                       )
                     })
                   }
-</select>
+    </TextField>
+  </Box>
+
 <IDE
             id="python-code-editor2"
             // value={code
@@ -660,6 +689,30 @@ with open('file', 'w') as sys.stdout:
         </div>
         {/* <HomepageFeatures /> */}
       </main>
+      </MaterialThemeWrapper>
+
     </Layout>
   );
+}
+
+
+const MaterialThemeWrapper = ({children}) => {
+  
+  const { colorMode } = useColorMode();
+  const isDarkTheme = colorMode === "dark";
+
+  const theme = React.useMemo(
+    () =>
+      createTheme({
+        palette: {
+          mode: isDarkTheme ? "dark" : "light",
+        },
+      }),
+    [isDarkTheme],
+  );
+  
+  return <ThemeProvider theme={theme}>
+        <CssBaseline />
+        {children}
+  </ThemeProvider>
 }

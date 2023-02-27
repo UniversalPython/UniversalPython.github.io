@@ -37,6 +37,7 @@ class CodeEditor extends React.PureComponent {
     const { value } = this.state;
 
     return (
+      
       <AceEditor
         // theme="twilight"
         theme="github"
