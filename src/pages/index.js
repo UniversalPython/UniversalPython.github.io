@@ -12,6 +12,8 @@ import { useColorMode } from '@docusaurus/theme-common';
 import { EditorView } from '@codemirror/view';  
 import { Blocks } from  'react-loader-spinner'
 import useIsBrowser from '@docusaurus/useIsBrowser';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
 
 
 export const defaultLightThemeOption = EditorView.theme( 
@@ -183,6 +185,9 @@ with open("chad.txt", "r") as f:
 
 
 export default function Home() {
+
+
+
   const {siteConfig} = useDocusaurusContext();
   
   const [editorCode, setEditorCode] = useState(initialCodes[0].en);
@@ -314,6 +319,9 @@ export default function Home() {
 
 
       </Head>
+
+      <MaterialThemeWrapper>
+
       <HomepageHeader />
       <main>
         {/* <textarea  style={{
@@ -338,10 +346,13 @@ export default function Home() {
 
 
   <Box width="250px">
-  <TextField select fullWidth label="Select Preset"  onChange={(e) => {
+  <TextField select fullWidth label="Choose Preset"  onChange={(e) => {
                   console.log("e.target.value:", e.target.value);
                   console.log(`languages.find(l => l.id === e.target.value)`, initialCodes.find(l => l.id === e.target.value))
                   setCode(initialCodes.find(l => l.id === e.target.value).en);
+                }}
+                style={{
+                  marginLeft: "0.7rem"
                 }}
                 value={initialCodes.find(c => {
                   console.log("c.en === code:", c.en === code);
@@ -377,10 +388,13 @@ export default function Home() {
               }}>
 
               <Box width="250px">
-                <TextField label="Select Language"fullWidth select onChange={(e) => {
+                <TextField label="From" fullWidth select onChange={(e) => {
                   console.log("e.target.value:", e.target.value);
                   console.log(`languages.find(l => l.id === e.target.value)`, languages.find(l => l.id === e.target.value))
                   setSourceLanguage(languages.find(l => l.id === e.target.value));
+                }}
+                style={{
+                  marginLeft: "0.7rem"
                 }}
                 value={sourceLanguage?.id}
                 >
@@ -443,11 +457,14 @@ export default function Home() {
               }}>
   
   <Box width="250px">
-    <TextField select label="Select Language" fullWidth onChange={(e) => {
+    <TextField select label="To" fullWidth onChange={(e) => {
                   console.log("e.target.value:", e.target.value);
                   console.log(`languages.find(l => l.id === e.target.value)`, languages.find(l => l.id === e.target.value))
                   setTargetLanguage(languages.find(l => l.id === e.target.value));
                   setIsDetected(false);
+                }}
+                style={{
+                  marginLeft: "0.7rem"
                 }}
                 value={targetLanguage?.id}
                  >
@@ -672,6 +689,30 @@ with open('file', 'w') as sys.stdout:
         </div>
         {/* <HomepageFeatures /> */}
       </main>
+      </MaterialThemeWrapper>
+
     </Layout>
   );
+}
+
+
+const MaterialThemeWrapper = ({children}) => {
+  
+  const { colorMode } = useColorMode();
+  const isDarkTheme = colorMode === "dark";
+
+  const theme = React.useMemo(
+    () =>
+      createTheme({
+        palette: {
+          mode: isDarkTheme ? "dark" : "light",
+        },
+      }),
+    [isDarkTheme],
+  );
+  
+  return <ThemeProvider theme={theme}>
+        <CssBaseline />
+        {children}
+  </ThemeProvider>
 }
