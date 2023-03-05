@@ -299,8 +299,8 @@ export default function Home() {
 
   return (
     <Layout
-      title={`Hello from ${siteConfig.title}`}
-      description="Description will go into a meta tag in <head />">
+      title={`${siteConfig.title} | Programming for everyone`}
+      description="Write Python in any human language. Can't find yours? Easily contribute.">
       <Head>
         <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
         <script defer src="https://pyscript.net/latest/pyscript.js"></script>
