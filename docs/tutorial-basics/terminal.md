@@ -52,7 +52,7 @@ The mappings are as following:
 |    ```8```                 |       ۸|
 |    ```9```                 |       ۹|
 
-Find the whole list of keywords [here](./universalpython/languages/ur/ur_native.lang.yaml). Don't worry if you can't find a mapping, you can also use English Python!
+Find the whole list of keywords for Urdu [here](https://github.com/UniversalPython/UniversalPython/tree/%D9%85%D8%B1%DA%A9%D8%B2/urdupython/languages/ur/ur_native.lang.yaml). Don't worry if you can't find a mapping, you can also use English Python!
 
 An example of a Hello World Program:
 ```
@@ -62,7 +62,7 @@ would be
 ```
 لکھو ("Hello world!")
 ```
-There are many more sample codes available [here](./universalpython/samples)
+There are many more sample codes available [here](https://github.com/UniversalPython/UniversalPython/tree/%D9%85%D8%B1%DA%A9%D8%B2/urdupython/samples)
 
 3. Open a Terminal in the folder of this file.
 4. Run the code in one command: ```universalpython <NAME_OF_YOUR_FILE>```
