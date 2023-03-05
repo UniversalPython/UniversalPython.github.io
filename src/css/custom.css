@@ -4,9 +4,6 @@
  * work well for content-centric websites.
  */
 
-
-
-
  @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400&display=swap');
 
 /* You can override the default Infima variables here. */
@@ -38,3 +35,13 @@
   
 }
 
+/* .hero--primary {
+  background: 
+  linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),  
+  url(../../static/img/banner-background.png);
+} */
+
+[data-theme='dark'] .hero--primary {
+  color: white;
+}
+  

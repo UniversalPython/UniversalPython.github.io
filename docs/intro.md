@@ -2,46 +2,18 @@
 sidebar_position: 1
 ---
 
-# Tutorial Intro
+# Welcome
 
-Let's discover **Docusaurus in less than 5 minutes**.
+Welcome to the UniversalPython documentation! Learn more about UniversalPython, the motivation behind it, and how it works.
 
-## Getting Started
+## Our vision
 
-Get started by **creating a new site**.
+We know how hard it is to know multiple languages and get started with computer science and programming. Almost all the material you search for, all the books, videos, and even all of the major programming languages of world, are in English. Did you know that only 27% of the entire world's population knows English? How does the rest of the world learn? This is something we have yet to understand.
 
-Or **try Docusaurus immediately** with **[docusaurus.new](https://docusaurus.new)**.
+## History
 
-### What you'll need
+UniversalPython started off as UrduPython; the idea of a young student in NUCES, Islamabad, Pakistan. The motivation is simple; programming languages have a basic syntax comprising of "keywords". If there was a basic mapping of those keywords into other languages, the people of Pakistan (a country of **77 established languages**) could learn programming much better. 
 
-- [Node.js](https://nodejs.org/en/download/) version 16.14 or above:
-  - When installing Node.js, you are recommended to check all checkboxes related to dependencies.
+## Progress
 
-## Generate a new site
-
-Generate a new Docusaurus site using the **classic template**.
-
-The classic template will automatically be added to your project after you run the command:
-
-```bash
-npm init docusaurus@latest my-website classic
-```
-
-You can type this command into Command Prompt, Powershell, Terminal, or any other integrated terminal of your code editor.
-
-The command also installs all necessary dependencies you need to run Docusaurus.
-
-## Start your site
-
-Run the development server:
-
-```bash
-cd my-website
-npm run start
-```
-
-The `cd` command changes the directory you're working with. In order to work with your newly created Docusaurus site, you'll need to navigate the terminal there.
-
-The `npm run start` command builds your website locally and serves it through a development server, ready for you to view at http://localhost:3000/.
-
-Open `docs/intro.md` (this page) and edit some lines: the site **reloads automatically** and displays your changes.
+We went public with UniversalPython in March, 2023. We're looking for amazing maintainers and contributers, and wish to initiate a movement across the world to make programming languages and computer science education accessible to all.
