@@ -38,3 +38,18 @@
   
 }
 
+
+.hero--primary {
+  background: 
+  linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),  url(../../static/img/banner-background.png) 
+  ;
+  /* filter: brightness(50%); */
+}
+
+[data-theme='dark'] .hero--primary {
+  /* background: 
+  linear-gradient(rgba(255,255,255,0.7), rgba(255,255,255,0.7)),  url(../../static/img/banner-background.png) 
+  ; */
+  color: white;
+}
+  
