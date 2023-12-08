@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@codemirror/lang-python": "^6.1.1",
-    "@docusaurus/core": "2.2.0",
+    "@docusaurus/core": "2.2.1",
     "@docusaurus/preset-classic": "2.2.0",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
