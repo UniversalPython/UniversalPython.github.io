@@ -17,7 +17,7 @@
     "@codemirror/lang-python": "^6.1.1",
     "@docusaurus/core": "2.2.0",
     "@docusaurus/preset-classic": "2.2.0",
-    "@emotion/react": "^11.10.6",
+    "@emotion/react": "^11.10.8",
     "@emotion/styled": "^11.10.6",
     "@mdx-js/react": "^1.6.22",
     "@mui/material": "^5.11.10",
