@@ -8,7 +8,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const config = {
   title: 'UniversalPython',
   tagline: 'An inclusive transpiler which lets you write Python code in any human language.',
-  url: 'https://your-docusaurus-test-site.com',
+  url: 'https://universalpython.github.io',
   baseUrl: '/',
     onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -16,7 +16,7 @@ const config = {
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'grayhatdevelopers', // Usually your GitHub org/user name.
+  organizationName: 'universalpython', // Usually your GitHub org/user name.
   projectName: 'universalpython', // Usually your repo name.
 
   // Even if you don't use internalization, you can use this field to set useful
@@ -83,7 +83,7 @@ const config = {
           },
           {to: '/blog', label: 'Blog', position: 'left'},
           {
-            href: 'https://github.com/grayhatdevelopers/universalpython',
+            href: 'https://github.com/universalpython/universalpython',
             label: 'GitHub',
             position: 'right',
           },
