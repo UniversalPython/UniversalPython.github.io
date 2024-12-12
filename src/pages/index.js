@@ -308,8 +308,6 @@ export default function Home() {
 
         {/* <!-- PyScript CSS --> */}
         <link rel="stylesheet" href="https://pyscript.net/releases/2024.1.1/core.css" />
-        {/* <!-- CSS for examples --> */}
-        <link rel="stylesheet" href="./assets/css/examples.css" />
 
         {/* <!-- This script tag bootstraps PyScript --> */}
         <script type="module" src="https://pyscript.net/releases/2024.1.1/core.js"></script>
@@ -318,11 +316,11 @@ export default function Home() {
         {/* <style> */}
             {/* #loading { outline: none; border: none; background: transparent } */}
         {/* </style> */}
-        <script type="module">
+        {/* <script type="module">
             const loading = document.getElementById('loading');
             addEventListener('py:ready', () => loading.close());
             loading.showModal();
-        </script>
+        </script> */}
 
         {/* Add Hack font */}
         <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3/build/web/hack.css" />
@@ -617,7 +615,6 @@ packages = [
 {/* <py-env>{`- universalpython`}</py-env> */}
 <py-script 
 type="py"
-terminal
 id="output-terminal"
 style={{
   fontFamily: "Hack, 'Courier New', monospaced",
@@ -630,7 +627,7 @@ style={{
 }} key={code+"_"+sourceLanguage.id+"_"+targetLanguage.id}>
 {`
 from urdupython import (run_module, SCRIPTDIR);
-from js import document;
+from pyscript import document, display;
 import os;
 import sys;
 
