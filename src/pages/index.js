@@ -302,8 +302,27 @@ export default function Home() {
       title={`${siteConfig.title} | Programming for everyone`}
       description="Write Python in any human language. Can't find yours? Easily contribute.">
       <Head>
-        <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
-        <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+      {/* <!-- Recommended meta tags --> */}
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+
+        {/* <!-- PyScript CSS --> */}
+        <link rel="stylesheet" href="https://pyscript.net/releases/2024.1.1/core.css" />
+        {/* <!-- CSS for examples --> */}
+        <link rel="stylesheet" href="./assets/css/examples.css" />
+
+        {/* <!-- This script tag bootstraps PyScript --> */}
+        <script type="module" src="https://pyscript.net/releases/2024.1.1/core.js"></script>
+
+        {/* <!-- for splashscreen --> */}
+        {/* <style> */}
+            {/* #loading { outline: none; border: none; background: transparent } */}
+        {/* </style> */}
+        <script type="module">
+            const loading = document.getElementById('loading');
+            addEventListener('py:ready', () => loading.close());
+            loading.showModal();
+        </script>
 
         {/* Add Hack font */}
         <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3/build/web/hack.css" />
@@ -596,17 +615,19 @@ packages = [
     </py-config> */}
 
 {/* <py-env>{`- universalpython`}</py-env> */}
-        <py-script 
-        id="output-terminal"
-        style={{
-          fontFamily: "Hack, 'Courier New', monospaced",
-          marginBottom: "1rem",
-          display: "flex",
-          flexDirection: "column",
-          overflowY: "auto",  
-          maxHeight: "300px",
-          padding: "12px 18px 0px",
-        }} key={code+"_"+sourceLanguage.id+"_"+targetLanguage.id}>
+<py-script 
+type="py"
+terminal
+id="output-terminal"
+style={{
+  fontFamily: "Hack, 'Courier New', monospaced",
+  marginBottom: "1rem",
+  display: "flex",
+  flexDirection: "column",
+  overflowY: "auto",  
+  maxHeight: "300px",
+  padding: "12px 18px 0px",
+}} key={code+"_"+sourceLanguage.id+"_"+targetLanguage.id}>
 {`
 from urdupython import (run_module, SCRIPTDIR);
 from js import document;
@@ -653,7 +674,7 @@ with open('file', 'w') as sys.stdout:
   `
   
   }
-        </py-script>
+</py-script>
 
         {/* <input id="dummy-output-terminal" /> */}
         {/* 
