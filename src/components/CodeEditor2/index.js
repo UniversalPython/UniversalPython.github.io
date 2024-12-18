@@ -45,7 +45,7 @@ function CodeEditor2(props) {
     }, []);
     return (
       <CodeMirror
-        value="console.log('hello world!');"
+        value="Loading..."
         // height="200px"
         extensions={[python()]}
         onChange={onChange}

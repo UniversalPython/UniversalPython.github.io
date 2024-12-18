@@ -203,6 +203,21 @@ export default function Home() {
   const [sourceLanguage, setSourceLanguage] = useState(languages.find(l => l.code2 === "en"))
   const [targetLanguage, setTargetLanguage] = useState(languages.find((l) => l.default));
 
+  const [loadingPyscript, setLoadingPyscript] = useState(true);
+
+  useEffect(() => {
+    console.log("loading pyscript...");
+    let timeoutId;
+    const clearTimeoutId = () => clearTimeout(timeoutId)
+    document.addEventListener('py:ready', () => {
+      clearTimeoutId()
+      setLoadingPyscript(false)
+    });
+    timeoutId = setTimeout(() => {
+      console.log("made loading false anyway after 10 seconds");
+      setLoadingPyscript(false)
+  }, 10000)
+  }, [])
 
   const isBrowser = useIsBrowser();
 
@@ -310,7 +325,7 @@ export default function Home() {
         <link rel="stylesheet" href="https://pyscript.net/releases/2024.1.1/core.css" />
 
         {/* <!-- This script tag bootstraps PyScript --> */}
-        <script type="module" src="https://pyscript.net/releases/2024.1.1/core.js"></script>
+        <script defer type="module" src="https://pyscript.net/releases/2024.1.1/core.js"></script>
 
         {/* <!-- for splashscreen --> */}
         {/* <style> */}
@@ -590,13 +605,6 @@ display(now.strftime("%m/%d/%Y, %H:%M:%S"))
 packages = ["numpy", "https://files.pythonhosted.org/packages/b5/92/6d72a08c7b700031f9062c8f1c2f303ec2350eb83cca304ed28d035eed9c/universalpython-0.0.3-py3-none-any.whl"]
 `}</py-config>
 
-{/* <div
-  dangerouslySetInnerHTML={{
-    __html: `<py-env>
-- universalpython
-    </py-env>`,
-  }}
-/> */}
 {/* <py-config>{`
 packages = [
   "./static/wheels/universalpython-0.0.3-py3-none-any.whl",
@@ -613,6 +621,18 @@ packages = [
     </py-config> */}
 
 {/* <py-env>{`- universalpython`}</py-env> */}
+{!loadingPyscript && 
+//  <div
+//  dangerouslySetInnerHTML={{
+//    __html: `
+// <py-env>
+// - universalpython
+// - numpy
+// </py-env>
+// `,
+//  }}
+// /> */}
+
 <py-script 
 type="py"
 id="output-terminal"
@@ -620,12 +640,12 @@ style={{
   fontFamily: "Hack, 'Courier New', monospaced",
   marginBottom: "1rem",
   display: "flex",
-  flexDirection: "column",
+  flexDirection: "column-reverse",
   overflowY: "auto",  
   maxHeight: "300px",
   padding: "12px 18px 0px",
 }} key={code+"_"+sourceLanguage.id+"_"+targetLanguage.id}>
-{`
+  {`
 from urdupython import (run_module, SCRIPTDIR);
 from pyscript import document, display;
 import os;
@@ -667,11 +687,10 @@ with open('file', 'w') as sys.stdout:
   # display(element.innerHTML)
   element.innerHTML = translated_code.replace("\\n", "<br/>").replace(" ", "&nbsp;")
   # .replace(" ", "&nbsp;");
-
   `
-  
   }
-</py-script>
+  {/* </span> */}
+</py-script>}
 
         {/* <input id="dummy-output-terminal" /> */}
         {/* 
