@@ -614,7 +614,7 @@ display(now.strftime("%m/%d/%Y, %H:%M:%S"))
         }}>
   
 <py-config>{`
-packages = ["numpy", "https://files.pythonhosted.org/packages/b5/92/6d72a08c7b700031f9062c8f1c2f303ec2350eb83cca304ed28d035eed9c/universalpython-0.0.3-py3-none-any.whl"]
+packages = ["numpy", "https://test-files.pythonhosted.org/packages/97/ae/5df2bac28fc0557ec9a01c3b6852602a8f0c3d2dcfeb5b3342b5500d76e0/urdupython-0.1.4-py3-none-any.whl"]
 `}</py-config>
 
 {/* <py-config>{`
