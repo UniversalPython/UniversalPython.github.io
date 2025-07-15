@@ -36,7 +36,24 @@ import { height } from '@mui/system';
 
 //Array of Languages on right side of code editor
 const languages = [
-
+  {
+    id: "CS",
+    code3: "ces",
+    code2: "cs",
+    name: "Czech",
+    i18nName: "Čeština",
+    fontFamily: "'Roboto Mono'",
+    toEnglishDict: "'languages/cs/cs_native.lang.yaml'",
+  },
+  {
+    id: "DE",
+    code3: "deu",
+    code2: "de",
+    name: "German",
+    i18nName: "Deutsch",
+    fontFamily: "'Roboto Mono'",
+    toEnglishDict: "'languages/de/de_native.lang.yaml'",
+  },
   {
     id: "UR",
     code3: "urd",
@@ -48,7 +65,6 @@ const languages = [
     toEnglishDict: "'languages/ur/ur_native.lang.yaml'",
     fontWeights: "bold",
     style: {
-      
       direction: "rtl"
     }
   },
@@ -60,7 +76,6 @@ const languages = [
     name: "Hindi",
     i18nName: "Hindi",
     fontFamily: "'Roboto Mono'",
-    
     toEnglishDict: "'languages/hi/hi_native.lang.yaml'",
   },
   {
@@ -70,11 +85,8 @@ const languages = [
     name: "English",
     i18nName: "English",
     fontFamily: "'Roboto Mono'",
-    
   }
 ]
-
-
 const IDE = ({basicSetup, ...props}) => {
 
   const { colorMode } = useColorMode();
