@@ -1,23 +1,41 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, {useEffect, useState} from 'react';
 import clsx from 'clsx';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Head from '@docusaurus/Head';
 import Layout from '@theme/Layout';
-import { Box, TextField, MenuItem } from '@mui/material';
+import HomepageFeatures from '@site/src/components/HomepageFeatures';
+import CodeEditor from '@site/src/components/CodeEditor2';
+import { Box,TextField,MenuItem } from '@mui/material';
 import useGeoLocation from "react-ipgeolocation";
 import { useColorMode } from '@docusaurus/theme-common';
 import { EditorView } from '@codemirror/view';  
-import { Blocks } from 'react-loader-spinner';
+import { Blocks } from  'react-loader-spinner'
 import useIsBrowser from '@docusaurus/useIsBrowser';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 
-import styles from './index.module.css';
-import CodeEditor from '@site/src/components/CodeEditor2';
 
-// Constants
-const LANGUAGES = [
+export const defaultLightThemeOption = EditorView.theme( 
+  { 
+    '&': { 
+      backgroundColor: 'whitesmoke', 
+    }, 
+  }, 
+  { 
+    dark: false, 
+  }, 
+); 
+
+// import "brace/mode/python";
+// import "brace/theme/monokai";
+
+
+import styles from './index.module.css';
+import { height, width } from '@mui/system';
+
+//Array of Languages on right side of code editor
+const languages = [
   {
     id: "CS",
     code3: "ces",
@@ -46,6 +64,9 @@ const LANGUAGES = [
     fontFamily: "'Roboto Mono'",
     toEnglishDict: "'languages/ur/ur_native.lang.yaml'",
     fontWeights: "bold",
+    style: {
+      direction: "rtl"
+    }
   },
   {
     id: "HI",
@@ -65,12 +86,81 @@ const LANGUAGES = [
     i18nName: "English",
     fontFamily: "'Roboto Mono'",
   }
-];
+]
+const IDE = ({basicSetup, ...props}) => {
 
-const CODE_EXAMPLES = [
+  const { colorMode } = useColorMode();
+  const isDarkTheme = colorMode === "dark";
+  const [editorCode, setEditorCode] = useState(initialCodes[1].en);
+  const [code, setCode] = useState(initialCodes[1].en);
+
+
+  useEffect(() => {
+    const codingTimeoutId = setTimeout(() => {
+      setCode(editorCode);
+    }, 400)
+    return () => {
+      clearTimeout(codingTimeoutId);
+    }
+  }, [editorCode]);
+
+  return (<CodeEditor
+    // id="python-code-editor1"
+    // value={code}
+    // mode="python"
+    // // theme="monokai"
+    // onChange={text => setEditorCode(text)}
+    // // width={`${(window.innerWidth / 2)}px`}
+    // // height={`${window.innerHeight}px`}
+    // height={"200px"}
+    // fontSize={"1rem"}
+    // style={{
+    //   flex: "1 1 auto",
+    //   fontFamily: "Hack, 'Courier New', monospaced",
+    //   fontSize: "1.15rem",
+    //   margin: "12px",
+    //   borderRadius: "8px",
+    //   overflow: "hidden",
+    // }}
+    basicSetup={{
+      ...{
+      background: props.readOnly && !isDarkTheme ? "#000fff" : undefined,
+      // direction: "rtl",
+      // lineNumbers: true,
+    },
+    ...basicSetup
+    }}
+    theme={isDarkTheme ? "dark" : props.readOnly ? defaultLightThemeOption : "light"}
+    {...props}
+  />
+)
+}
+
+function HomepageHeader() {
+  
+  const {siteConfig} = useDocusaurusContext();
+  return (
+    <header className={clsx('hero hero--primary', styles.heroBanner)}>
+      <div className="container">
+        <h1 className="hero__title">{siteConfig.title}</h1>
+        <p className="hero__subtitle">{siteConfig.tagline}</p>
+        <div className={styles.buttons}>
+          <Link
+            className="button button--secondary button--lg"
+            to="/docs/intro">
+            Tutorial - 5 min ⏱️
+          </Link>
+        </div>
+      </div>
+    </header>
+  );
+}
+
+
+const initialCodes = [
   {
     id: "hello_world",
-    name: "Simple Hello World",
+    name: " Simple Hello World",
     en: `print("Hello world!")`
   },
   {
@@ -79,11 +169,11 @@ const CODE_EXAMPLES = [
     en: `something = 2
 
 if something == 1:
-  print("Hello")
+  print ("Hello")
 elif something == 2:
-  print("World")
+  print ("World")
 else:
-  print("Didn't understand...")`
+  print ("Didn't understand...")`
   },
   {
     id: "loop",
@@ -91,150 +181,492 @@ else:
     en: `things = ['💻', '📷', '🧸']
 
 for thing in things:
-  print(thing)`
+  print(thing)
+`
   },
-  {
-    id: "file_io",
-    name: "File Reading/Writing",
-    en: `with open("chad.txt", "w") as f:
+{
+  id: "file_io",
+  name: "File Reading/Writing",
+  en: `with open("chad.txt", "w") as f:
   f.write("chad")
 
 with open("chad.txt", "r") as f:
   print(f.read())`
-  }
-];
+}
+]
 
-// Components
-const IDE = ({ basicSetup, sourceLanguage, ...props }) => {
-  const { colorMode } = useColorMode();
-  const isDarkTheme = colorMode === "dark";
+
+export default function Home() {
+
+  const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
+
+  const {siteConfig} = useDocusaurusContext();
+  
+  const [editorCode, setEditorCode] = useState(initialCodes[0].en);
+  const [code, setCode] = useState("");
+  
+  const [outputCode, setOutputCode] = useState("");
+  
+  const [isWaitingForCode, setIsWaitingForCode] = useState(false);
+  const [isDetected, setIsDetected] = useState(false);
+
+  const {country, isLoading: isCountryLoading} = useGeoLocation();
+
+  const [sourceLanguage, setSourceLanguage] = useState(languages.find(l => l.code2 === "en"))
+  const [targetLanguage, setTargetLanguage] = useState(languages.find((l) => l.default));
+
+  const [loadingPyscript, setLoadingPyscript] = useState(true);
+
+  useEffect(() => {
+    console.log("loading pyscript...");
+    let timeoutId;
+    const clearTimeoutId = () => clearTimeout(timeoutId)
+    document.addEventListener('py:ready', () => {
+      clearTimeoutId()
+      setLoadingPyscript(false)
+    });
+    timeoutId = setTimeout(() => {
+      console.log("made loading false anyway after 10 seconds");
+      setLoadingPyscript(false)
+  }, 10000)
+  }, [])
+
+  const isBrowser = useIsBrowser();
+
+  const dummyOutputTerminal = isBrowser && document.getElementById("dummy-output-terminal");
+
+  useEffect(() => {
+    if (!dummyOutputTerminal) return;
+    
+    dummyOutputTerminal.addEventListener("change", (e) => {
+      console.log("e.target.value", e.target.value);
+      setOutputCode(e.target.value);
+    })
+    // console.log("dummyOutputTerminal:", dummyOutputTerminal.innerHTML)
+    // setTimeout(() => setOutputCode(document.getElementById("dummy-output-terminal").innerHTML), 400);
+  })
+
+  useEffect(() => {
+    console.log(`targetLanguage: ${targetLanguage.id}`);
+  },[targetLanguage]);
+
+  useEffect(() => {
+    if (targetLanguage && !targetLanguage.default) return;
+    console.log("location: ", location)
+
+    // References:
+    // - https://www.npmjs.com/package/react-ipgeolocation
+    // - https://restcountries.com/#api-endpoints-v3-full-name
+    // - https://www.copycat.dev/blog/react-fetch/#:~:text=Fetch%20allows%20you%20to%20send,a%20full%2Dfledged%20React%20application.
+
+    if (!country) return;
+    fetch(`https://restcountries.com/v3.1/alpha/${country}?fullText=true`)
+    .then(res => res.json())
+    .then(
+      (result) => {
+        console.log("result:", result);
+        const languageCodes = languages.map((language) => language.code3);
+        const countryFirstNativeLang = Object
+          .keys(result[0].languages)
+          .filter(lang => lang !== "eng") // remove english
+          [0];
+          console.log("countryFirstNativeLang:", countryFirstNativeLang)
+          console.log("languageCodes:", languageCodes)
+
+        const _targetLanguageIndex = languageCodes
+        .findIndex(
+          lc => lc === countryFirstNativeLang
+        ) 
+        let _targetLanguage;
+        console.log("_targetLanguageIndex:", _targetLanguageIndex);
+        if (_targetLanguageIndex > -1) {
+          _targetLanguage = languages[_targetLanguageIndex];
+          setIsDetected(true);
+        } 
+        else {
+          _targetLanguage = languages[1];
+        }
+        setTargetLanguage(_targetLanguage);
+      },
+      // Note: it's important to handle errors here
+      // instead of a catch() block so that we don't swallow
+      // exceptions from actual bugs in components.
+      (error) => {
+        // this.setState({
+        //   isLoaded: true,
+        //   error
+        // });
+      }
+    )
+  }, [country]);
+
+  useEffect(() => {
+    setIsWaitingForCode(true);
+    const codingTimeoutId = setTimeout(() => {
+      setIsWaitingForCode(false);
+      setCode(editorCode);
+    }, 400)
+    return () => {
+      setIsWaitingForCode(false);
+      clearTimeout(codingTimeoutId);
+    }
+  }, [editorCode]);
+
+  useEffect(()=>{
+    // https://stackoverflow.com/questions/8199760/how-to-get-the-browser-language-using-javascript
+    var userLang = navigator.language || navigator.userLanguage; 
+    var _languageCode = userLang.split("-")[0];
+    console.log ("The language is: " + userLang);
+    const _targetLanguageIndex = languages.findIndex((l) => l.code2 === _languageCode);
+    if (_languageCode !== "en" && _targetLanguageIndex > -1) {
+      setTargetLanguage(languages[_targetLanguageIndex]);
+      setIsDetected(true);
+    }
+  }, []);
 
   return (
-    <CodeEditor
-      basicSetup={{
-        ...{
-          background: props.readOnly && !isDarkTheme ? "#000fff" : undefined,
-        },
-        ...basicSetup
-      }}
-      theme={isDarkTheme ? "dark" : props.readOnly ? EditorView.theme({ 
-        '&': { backgroundColor: 'whitesmoke' } 
-      }, { dark: false }) : "light"}
-      {...props}
-    />
-  );
-};
+    <Layout
+      title={`${siteConfig.title} | Programming for everyone`}
+      description="Write Python in any human language. Can't find yours? Easily contribute.">
+      <Head>
+      {/* <!-- Recommended meta tags --> */}
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1.0" />
 
-const LanguageSelector = ({ label, value, onChange, languages, isDetected }) => (
-  <TextField 
-    select 
-    fullWidth 
-    label={label}
-    onChange={onChange}
-    value={value}
-    sx={{
-      marginLeft: "0.7rem",
-      maxWidth: { xs: "100%", md: "250px" }
-    }}
-  >
-    {languages.map((language) => (
-      <MenuItem key={language.id} value={language.id}>
-        {language.name} {value === language.id && isDetected ? " - detected" : ""}
-      </MenuItem>
-    ))}
-  </TextField>
-);
+        {/* <!-- PyScript CSS --> */}
+        <link rel="stylesheet" href="https://pyscript.net/releases/2024.1.1/core.css" />
 
-const CodePresetSelector = ({ value, onChange, presets }) => (
-  <Box width={{ xs: "100%", md: "250px" }}>
-    <TextField 
-      select 
-      fullWidth 
-      label="Choose Preset"
-      onChange={onChange}
-      value={value}
-      sx={{ marginLeft: "0.7rem" }}
-    >
-      {presets.map((preset) => (
-        <MenuItem key={preset.id} value={preset.id}>{preset.name}</MenuItem>
-      ))}
-      <MenuItem value="custom">Custom</MenuItem>
-    </TextField>
+        {/* <!-- This script tag bootstraps PyScript --> */}
+        <script defer type="module" src="https://pyscript.net/releases/2024.1.1/core.js"></script>
+
+        {/* <!-- for splashscreen --> */}
+        {/* <style> */}
+            {/* #loading { outline: none; border: none; background: transparent } */}
+        {/* </style> */}
+        {/* <script type="module">
+            const loading = document.getElementById('loading');
+            addEventListener('py:ready', () => loading.close());
+            loading.showModal();
+        </script> */}
+
+        {/* Add Hack font */}
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3/build/web/hack.css" />
+
+        {/* <div
+  dangerouslySetInnerHTML={{
+    __html: `<py-env>
+- universalpython
+- numpy
+    </py-env>`,
+  }}
+/> */}
+
+
+      </Head>
+
+      <MaterialThemeWrapper>
+
+      <HomepageHeader />
+      <main>
+          <Box sx={{ 
+            padding: { xs: "20px", md: "80px" },
+            maxWidth: "100%",
+            overflowX: "hidden"
+          }}>
+
+
+
+  <Box width="250px">
+  <TextField select fullWidth label="Choose Preset"  onChange={(e) => {
+                  console.log("e.target.value:", e.target.value);
+                  console.log(`languages.find(l => l.id === e.target.value)`, initialCodes.find(l => l.id === e.target.value))
+                  setCode(initialCodes.find(l => l.id === e.target.value).en);
+                }}
+                style={{
+                  marginLeft: "0.7rem"
+                }}
+                value={initialCodes.find(c => {
+                  console.log("c.en === code:", c.en === code);
+                  return c.en === code
+                })?.id || "custom"}
+                key={code}
+                >
+                 {
+                    initialCodes.map((l, idx) => {
+                      return (
+                        <MenuItem value={l.id}>{l.name}</MenuItem>
+                      )
+                    })
+                  } 
+                  <MenuItem value="custom">Custom</MenuItem>
+   </TextField>
   </Box>
-);
+  
+                                            {/* *****************************************
+                                             ********DIV FOR THE LANGUAGE SECTION**********
+                                            ***********************************************
+                                            ************************************************/}
+  
+ 
+        <div style={{
+          display: "flex",
+          flexDirection: isMobile ? "column" : "row",
+          marginTop: "12px",
+        }}>
+            <div
+              style={{
+                flex: 1,
+              }}>
 
-const SwapButton = ({ onClick }) => (
-  <button 
-    onClick={onClick}
+              <Box width="250px">
+                <TextField label="From" fullWidth select onChange={(e) => {
+                  console.log("e.target.value:", e.target.value);
+                  console.log(`languages.find(l => l.id === e.target.value)`, languages.find(l => l.id === e.target.value))
+                  setSourceLanguage(languages.find(l => l.id === e.target.value));
+                }}
+                style={{
+                  marginLeft: "0.7rem"
+                }}
+                value={sourceLanguage?.id}
+                >
+                 {
+                    languages.map((l, idx) => {
+                      return (
+                        <MenuItem value={l.id}>{l.name}</MenuItem>
+                      )
+                    })
+                  }
+                  
+                </TextField>
+              </Box>
+
+<IDE id="python-code-editor1"
+    value={code}
+    mode="python"
+    // theme="monokai"
+    onChange={text => setEditorCode(text)}
+    // width={`${(window.innerWidth / 2)}px`}
+    // height={`${window.innerHeight}px`}
+    height={"200px"}
+    fontSize={"1rem"}
     style={{
-      opacity: 0.45,
-      height: "100%",
-      backgroundColor: "transparent",
-      border: "none",
-      cursor: "pointer",
-      width: { xs: "10%", md: "5%" },
-      fontSize: "1.5rem",
-      margin: "0 8px"
-    }}
-  >
-    &#8644;
-  </button>
-);
+      flex: "1 1 auto",
+      fontFamily: sourceLanguage?.fontFamily || "Hack, 'Courier New', monospaced",
+      fontSize: "1.15rem",
+      margin: "12px",
+      borderRadius: "8px",
+      overflow: "hidden",
+      direction: sourceLanguage?.direction || "ltr",
 
-const OutputTerminal = ({ isWaitingForCode, code, sourceLanguage, targetLanguage, loadingPyscript }) => (
-  <div style={{
-    background: "#232323",
-    border: "1px solid gray",
-    padding: "0px 0px 24px",
-    borderRadius: "8px",
-    color: "whitesmoke",
-    marginTop: "20px",
-    overflow: "hidden",
-    opacity: isWaitingForCode ? 0.76 : 1,
-    pointerEvents: isWaitingForCode ? "none" : "auto",
-    transition: "0.4s ease-in-out",
+    }}
+    />
+  </div>
+
+    {/* IDE convertor button */}
+  <button style={{
+  opacity: 0.45,
+  height: isMobile ? "fit" : "100%", // Adjust height
+  width: "100%", // Adjust width
+  // backgroundColor:  isMobile ? "gray" : "transparent",
+  borderRadius: '0.4rem',
+  border: "none",
+  cursor: "pointer",
+  width: isMobile ? "100%" : "5%", // Full width on mobile
+  fontSize: "1.5rem",
+  padding: isMobile ? "10px 0" : 0, // Add padding on mobile
+  // transform: isMobile ? "rotate(90deg)" : "none", // Rotate arrow on mobile
+  margin: isMobile ? "10px 0" : 0, // Add margin on mobile
+}} onClick={()=>{
+    setTargetLanguage(sourceLanguage);
+    setSourceLanguage(targetLanguage);
+    var element = document.getElementById("python-code-editor2");
+    setCode(element.innerHTML.replaceAll("<br>", "\n").replaceAll("&nbsp;", " "))
   }}>
-    <div style={{
-      textTransform: "uppercase",
-      opacity: 0.67,
-      fontSize: "0.8rem",
-      letterSpacing: "0.1rem",
-      padding: "12px 24px",
-      height: "44px",
-      marginBottom: "12px",
-      background: "black",
-      alignItems: "center",
-      flexDirection: "row",
-      justifyContent: "center",
-    }}>
-      <Blocks
+  {/* &#8660; */}
+  &#8644;
+  </button>
+
+            <div
+              style={{
+                flex: 1,
+                marginLeft: "12px",
+              }}>
+  
+  <Box width="100%" flexDirection={"row"} display="flex" alignItems="center" justifyContent={"space-between"}>
+    <TextField select label="To" fullWidth onChange={(e) => {
+                  console.log("e.target.value:", e.target.value);
+                  console.log(`languages.find(l => l.id === e.target.value)`, languages.find(l => l.id === e.target.value))
+                  setTargetLanguage(languages.find(l => l.id === e.target.value));
+                  setIsDetected(false);
+                }}
+                style={{
+                  marginLeft: "0.7rem",
+                  maxWidth: "250px"
+                }}
+                value={targetLanguage?.id}
+                 >
+                {
+                    languages.map((l, idx) => {
+                      return (
+                        <MenuItem value={l.id}>{l.name} {targetLanguage?.id === l.id ? isDetected ? " - detected" : "" : ""}</MenuItem>
+                      )
+                    })
+                  }
+    </TextField>
+    {
+      targetLanguage.toEnglishDict && (
+      <span opacity={0.67} style={{
+        fontSize: "0.8rem",
+        marginRight: "12px",
+        fontFamily: "Roboto Mono, monospace",
+        fontWeight: "bold",
+        color: "gray",
+        marginLeft: "18px",
+      }}>
+      Translation not looking right? Make edits <a style={{}} href={"https://github.com/UniversalPython/UniversalPython/edit/main/universalpython/" + targetLanguage.toEnglishDict.replaceAll("'", '')} target='_blank'>here</a>.
+    </span>
+      )
+    }
+  </Box>
+
+<IDE
+            id="python-code-editor2"
+            // value={code
+            //   .replaceAll("display", "دکھاو")
+            //   .replaceAll("things", "چیزیں")
+            //   .replaceAll("thing", "چیز")
+            //   .replaceAll("for", "ہر")
+            //   .replaceAll("in", "اندر")
+            //   .replaceAll(":", ":")            
+            // }
+            mode="python"
+            // theme="monokai"
+            // onChange={text => setEditorCode(text)}
+            // width={`${(window.innerWidth / 2)}px`}
+            // height={`${window.innerHeight}px`}
+            height={"200px"}
+            fontSize={"1rem"}
+            style={{
+              flex: "1 1 auto",
+              // background: "whitesmoke",
+              fontFamily: "Hack, 'Courier New', monospaced",
+              fontSize: "1.15rem",
+              // textAlign: "right",
+              direction: targetLanguage?.direction || "ltr",
+              fontFamily: targetLanguage?.fontFamily || undefined,
+              margin: "12px",
+              borderRadius: "8px",
+              height: "200px",
+              overflow: "auto",
+              // height: "100%",
+              opacity: isWaitingForCode ? 0.5 : 0.97,
+              whiteSpace: "nowrap",
+              width: "100%",
+            }}
+            readOnly={true}
+            // background={'#000fff'}
+            disabled={true}
+            // theme={defaultLightThemeOption}
+            direction="rtl"
+            basicSetup={{
+              // background: "#000fff",
+              direction: "rtl",
+              // lineNumbers: true,
+            }}
+            // theme={isDark ? "dark" : "light"}
+            />
+            </div>
+</div>
+          {/* {`
+from datetime import datetime
+now = datetime.now()
+display(now.strftime("%m/%d/%Y, %H:%M:%S"))
+`} */}
+      <div style={{
+          background: "#232323",
+          border: "1px solid gray",
+          padding: "0px 0px 24px",
+          borderRadius: "8px",
+          color: "whitesmoke",
+          marginTop: "20px",
+          overflow: "hidden",
+          opacity: isWaitingForCode ? 0.76 : 1,
+          pointerEvents: isWaitingForCode ? "none" : "auto",
+          transition: "0.4s ease-in-out",
+          // transitionDelay: "0.2s",
+      }}>
+        <div style={{
+          textTransform: "uppercase",
+          opacity: 0.67,
+          fontSize: "0.8rem",
+          letterSpacing: "0.1rem",
+          padding: "12px 24px",
+          height: "44px",
+          marginBottom: "12px",
+          background: "black",
+          alignItems: "center",
+          flexDirection: "row",
+          justifyContent: "center",
+        }}> <Blocks
         visible={isWaitingForCode}
         height="14"
         width={isWaitingForCode ? "14" : "0"}
         ariaLabel="blocks-loading"
-        wrapperStyle={{ paddingTop: "4px", transition: "0.2s" }}
+        wrapperStyle={{
+          paddingTop: "4px",
+          transition: "0.2s",
+        }}
         wrapperClass="blocks-wrapper"
-      />
-      {isWaitingForCode ? "Waiting for you to stop typing..." : "Output"}
-    </div>
-    
-    {!loadingPyscript && (
-      <py-script 
-        type="py"
-        id="output-terminal"
-        style={{
-          fontFamily: "Hack, 'Courier New', monospaced",
-          marginBottom: "1rem",
-          display: "flex",
-          flexDirection: "column-reverse",
-          overflowY: "auto",  
-          maxHeight: "300px",
-          padding: "12px 18px 0px",
-        }} 
-        key={`${code}_${sourceLanguage.id}_${targetLanguage.id}`}
-      >
-        {`
-from universalpython import (run_module, SCRIPTDIR);
+      /> {isWaitingForCode ? "Waiting for you to stop typing..." : "Output"}</div>
+        <div style={{
+        }}>
+  
+<py-config>{`
+packages = ["numpy", "https://test-files.pythonhosted.org/packages/97/ae/5df2bac28fc0557ec9a01c3b6852602a8f0c3d2dcfeb5b3342b5500d76e0/urdupython-0.1.4-py3-none-any.whl"]
+`}</py-config>
+
+{/* <py-config>{`
+packages = [
+  "./static/wheels/universalpython-0.0.3-py3-none-any.whl",
+]
+terminal = false
+`}
+    </py-config> */}
+
+
+{/* <py-config>{`
+packages = [
+  "./static/wheels/universalpython-0.0.3.tar.gz",
+]`}
+    </py-config> */}
+
+{/* <py-env>{`- universalpython`}</py-env> */}
+{!loadingPyscript && 
+//  <div
+//  dangerouslySetInnerHTML={{
+//    __html: `
+// <py-env>
+// - universalpython
+// - numpy
+// </py-env>
+// `,
+//  }}
+// /> */}
+
+<py-script 
+type="py"
+id="output-terminal"
+style={{
+  fontFamily: "Hack, 'Courier New', monospaced",
+  marginBottom: "1rem",
+  display: "flex",
+  flexDirection: "column-reverse",
+  overflowY: "auto",  
+  maxHeight: "300px",
+  padding: "12px 18px 0px",
+}} key={code+"_"+sourceLanguage.id+"_"+targetLanguage.id}>
+  {`
+from urdupython import (run_module, SCRIPTDIR);
 from pyscript import document, display;
 import os;
 import sys;
@@ -253,6 +685,7 @@ with open('file', 'w') as sys.stdout:
               'return': True,
     }
   );`}
+  # display(english_code);
   print = display;
   exec(english_code);
   
@@ -268,275 +701,75 @@ with open('file', 'w') as sys.stdout:
               'return': True,
     }
   );`}
+  # display(translated_code)
+  # code = code.replace("print", "display");
   element = document.getElementById("python-code-editor2");
+  # display(element.innerHTML)
   element.innerHTML = translated_code.replace("\\n", "<br/>").replace(" ", "&nbsp;")
-        `}
-      </py-script>
-    )}
-  </div>
-);
+  # .replace(" ", "&nbsp;");
+  `
+  }
+  {/* </span> */}
+</py-script>}
 
-const HomepageHeader = () => {
-  const { siteConfig } = useDocusaurusContext();
-  return (
-    <header className={clsx('hero hero--primary', styles.heroBanner)}>
-      <div className="container">
-        <h1 className="hero__title">{siteConfig.title}</h1>
-        <p className="hero__subtitle">{siteConfig.tagline}</p>
-        <div className={styles.buttons}>
-          <Link
-            className="button button--secondary button--lg"
-            to="/docs/intro">
-            Tutorial - 5 min ⏱️
-          </Link>
-        </div>
-      </div>
-    </header>
+        {/* <input id="dummy-output-terminal" /> */}
+        {/* 
+
+
+        <py-script key={code}>{`
+from urdupython import (run_module, SCRIPTDIR);
+import os;
+import sys;
+with open('file', 'w') as sys.stdout:
+  code = run_module(
+    mode="lex", 
+    code="""${code.toString()}""",
+    args={
+              'translate': False,
+              'dictionary': os.path.join(SCRIPTDIR, 'languages/ur/ur_native.lang.yaml'),
+              'reverse': False,
+              'keep': False,         
+              'keep_only': False,
+              'return': True,
+    }
   );
-};
+  display(code);
+  eval(code);
+#  element = document.getElementById("dummy-output-terminal");
+ # element.value = code;
+`
+}
+        </py-script> */}
+          </div>
 
-const MaterialThemeWrapper = ({ children }) => {
+        </div>
+        </Box>
+        {/* <HomepageFeatures /> */}
+      </main>
+      </MaterialThemeWrapper>
+
+    </Layout>
+  );
+}
+
+
+const MaterialThemeWrapper = ({children}) => {
+  
   const { colorMode } = useColorMode();
   const isDarkTheme = colorMode === "dark";
 
-  const theme = useMemo(
-    () => createTheme({ palette: { mode: isDarkTheme ? "dark" : "light" } }),
-    [isDarkTheme]
+  const theme = React.useMemo(
+    () =>
+      createTheme({
+        palette: {
+          mode: isDarkTheme ? "dark" : "light",
+        },
+      }),
+    [isDarkTheme],
   );
   
-  return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      {children}
-    </ThemeProvider>
-  );
-};
-
-// Main Component
-export default function Home() {
-  const { siteConfig } = useDocusaurusContext();
-  const [editorCode, setEditorCode] = useState(CODE_EXAMPLES[0].en);
-  const [code, setCode] = useState("");
-  const [outputCode, setOutputCode] = useState("");
-  const [isWaitingForCode, setIsWaitingForCode] = useState(false);
-  const [isDetected, setIsDetected] = useState(false);
-  const { country, isLoading: isCountryLoading } = useGeoLocation();
-  const [sourceLanguage, setSourceLanguage] = useState(LANGUAGES.find(l => l.code2 === "en"));
-  const [targetLanguage, setTargetLanguage] = useState(LANGUAGES.find(l => l.default));
-  const [loadingPyscript, setLoadingPyscript] = useState(true);
-  const isBrowser = useIsBrowser();
-
-  // Initialize PyScript
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      setLoadingPyscript(false);
-    }, 10000);
-    
-    document.addEventListener('py:ready', () => {
-      clearTimeout(timeoutId);
-      setLoadingPyscript(false);
-    });
-
-    return () => clearTimeout(timeoutId);
-  }, []);
-
-  // Detect country language
-  useEffect(() => {
-    if (!country || targetLanguage?.default === false) return;
-
-    fetch(`https://restcountries.com/v3.1/alpha/${country}?fullText=true`)
-      .then(res => res.json())
-      .then(result => {
-        const languageCodes = LANGUAGES.map(language => language.code3);
-        const countryFirstNativeLang = Object.keys(result[0].languages)
-          .filter(lang => lang !== "eng")[0];
-
-        const targetLanguageIndex = languageCodes.findIndex(
-          lc => lc === countryFirstNativeLang
-        );
-
-        if (targetLanguageIndex > -1) {
-          setTargetLanguage(LANGUAGES[targetLanguageIndex]);
-          setIsDetected(true);
-        } else {
-          setTargetLanguage(LANGUAGES[1]);
-        }
-      })
-      .catch(error => console.error("Error detecting country language:", error));
-  }, [country]);
-
-  // Detect browser language
-  useEffect(() => {
-    const userLang = navigator.language || navigator.userLanguage;
-    const languageCode = userLang.split("-")[0];
-    const targetLanguageIndex = LANGUAGES.findIndex(
-      l => l.code2 === languageCode
-    );
-
-    if (languageCode !== "en" && targetLanguageIndex > -1) {
-      setTargetLanguage(LANGUAGES[targetLanguageIndex]);
-      setIsDetected(true);
-    }
-  }, []);
-
-  // Debounce code changes
-  useEffect(() => {
-    setIsWaitingForCode(true);
-    const timeoutId = setTimeout(() => {
-      setIsWaitingForCode(false);
-      setCode(editorCode);
-    }, 400);
-
-    return () => {
-      setIsWaitingForCode(false);
-      clearTimeout(timeoutId);
-    };
-  }, [editorCode]);
-
-  const handleSwapLanguages = () => {
-    setTargetLanguage(sourceLanguage);
-    setSourceLanguage(targetLanguage);
-    const element = document.getElementById("python-code-editor2");
-    setCode(element.innerHTML.replaceAll("<br>", "\n").replaceAll("&nbsp;", " "));
-  };
-
-  return (
-    <Layout
-      title={`${siteConfig.title} | Programming for everyone`}
-      description="Write Python in any human language. Can't find yours? Easily contribute."
-    >
-      <Head>
-        <meta charSet="UTF-8" />
-        <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-        <link rel="stylesheet" href="https://pyscript.net/releases/2024.1.1/core.css" />
-        <script defer type="module" src="https://pyscript.net/releases/2024.1.1/core.js"></script>
-        <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3/build/web/hack.css" />
-      </Head>
-
-      <MaterialThemeWrapper>
-        <HomepageHeader />
-        <main>
-          <Box sx={{ 
-            padding: { xs: "20px", md: "80px" },
-            maxWidth: "100%",
-            overflowX: "hidden"
-          }}>
-            <CodePresetSelector
-              value={CODE_EXAMPLES.find(c => c.en === code)?.id || "custom"}
-              onChange={(e) => setCode(CODE_EXAMPLES.find(l => l.id === e.target.value).en)}
-              presets={CODE_EXAMPLES}
-            />
-
-            <Box sx={{ 
-              display: "flex", 
-              flexDirection: { xs: "column", md: "row" },
-              marginTop: "12px",
-              gap: { xs: "12px", md: "0" }
-            }}>
-              <Box sx={{ flex: 1 }}>
-                <LanguageSelector
-                  label="From"
-                  value={sourceLanguage?.id}
-                  onChange={(e) => setSourceLanguage(LANGUAGES.find(l => l.id === e.target.value))}
-                  languages={LANGUAGES}
-                  isDetected={false}
-                />
-
-                <IDE
-                  id="python-code-editor1"
-                  value={code}
-                  mode="python"
-                  onChange={text => setEditorCode(text)}
-                  height="200px"
-                  fontSize="1rem"
-                  sourceLanguage={sourceLanguage}
-                  style={{
-                    flex: "1 1 auto",
-                    fontFamily: sourceLanguage?.fontFamily || "Hack, 'Courier New', monospaced",
-                    fontSize: "1.15rem",
-                    margin: "12px",
-                    borderRadius: "8px",
-                    overflow: "hidden",
-                    direction: sourceLanguage?.direction || "ltr",
-                  }}
-                />
-              </Box>
-
-              <SwapButton onClick={handleSwapLanguages} />
-
-              <Box sx={{ flex: 1 }}>
-                <Box sx={{ 
-                  display: "flex", 
-                  flexDirection: { xs: "column", md: "row" },
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  gap: { xs: "12px", md: "0" }
-                }}>
-                  <LanguageSelector
-                    label="To"
-                    value={targetLanguage?.id}
-                    onChange={(e) => {
-                      setTargetLanguage(LANGUAGES.find(l => l.id === e.target.value));
-                      setIsDetected(false);
-                    }}
-                    languages={LANGUAGES}
-                    isDetected={isDetected}
-                  />
-
-                  <Box sx={{ 
-                    fontSize: "0.8rem",
-                    fontFamily: "Roboto Mono, monospace",
-                    fontWeight: "bold",
-                    color: "gray",
-                    marginLeft: { xs: "0", md: "18px" },
-                    textAlign: { xs: "center", md: "left" },
-                    padding: { xs: "0 12px", md: "0" }
-                  }}>
-                    Translation not looking right? Make edits{" "}
-                    <a 
-                      href={`https://github.com/UniversalPython/UniversalPython/edit/main/universalpython/${targetLanguage.toEnglishDict.replaceAll("'", '')}`} 
-                      target='_blank'
-                    >
-                      here
-                    </a>.
-                  </Box>
-                </Box>
-
-                <IDE
-                  id="python-code-editor2"
-                  mode="python"
-                  height="200px"
-                  fontSize="1rem"
-                  sourceLanguage={targetLanguage}
-                  style={{
-                    flex: "1 1 auto",
-                    fontFamily: targetLanguage?.fontFamily || "Hack, 'Courier New', monospaced",
-                    fontSize: "1.15rem",
-                    direction: targetLanguage?.direction || "ltr",
-                    margin: "12px",
-                    borderRadius: "8px",
-                    height: "200px",
-                    overflow: "auto",
-                    opacity: isWaitingForCode ? 0.5 : 0.97,
-                    whiteSpace: "nowrap"
-                  }}
-                  readOnly={true}
-                  disabled={true}
-                  basicSetup={{ direction: targetLanguage?.direction || "ltr" }}
-                />
-              </Box>
-            </Box>
-
-            <OutputTerminal
-              isWaitingForCode={isWaitingForCode}
-              code={code}
-              sourceLanguage={sourceLanguage}
-              targetLanguage={targetLanguage}
-              loadingPyscript={loadingPyscript}
-            />
-          </Box>
-        </main>
-      </MaterialThemeWrapper>
-    </Layout>
-  );
+  return <ThemeProvider theme={theme}>
+        <CssBaseline />
+        {children}
+  </ThemeProvider>
 }
