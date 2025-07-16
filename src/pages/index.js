@@ -198,7 +198,7 @@ with open("chad.txt", "r") as f:
 
 export default function Home() {
 
-  const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
+  const isMobile = typeof window !== 'undefined' && window.innerWidth <= 1000;
 
   const {siteConfig} = useDocusaurusContext();
   
