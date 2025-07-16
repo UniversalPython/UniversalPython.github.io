@@ -523,7 +523,7 @@ export default function Home() {
         color: "gray",
         marginLeft: "18px",
       }}>
-      Translation not looking right? Make edits <a style={{}} href={"https://github.com/UniversalPython/UniversalPython/edit/main/universalpython/" + targetLanguage.toEnglishDict.replaceAll("'", '')} target='_blank'>here</a>.
+      Translation not looking right? Make edits <a style={{textDecoration: "underline"}} href={"https://github.com/UniversalPython/UniversalPython/edit/main/universalpython/" + targetLanguage.toEnglishDict.replaceAll("'", '')} target='_blank'>here</a>.
     </span>
       )
     }
@@ -622,7 +622,7 @@ display(now.strftime("%m/%d/%Y, %H:%M:%S"))
         }}>
   
 <py-config>{`
-packages = ["numpy", "https://test-files.pythonhosted.org/packages/97/ae/5df2bac28fc0557ec9a01c3b6852602a8f0c3d2dcfeb5b3342b5500d76e0/urdupython-0.1.4-py3-none-any.whl"]
+packages = ["https://test-files.pythonhosted.org/packages/ee/de/c7808c5b88a4b7bb5ef26274e30fd6921d0134ea1be9852be0515489c10b/urdupython-0.1.5-py3-none-any.whl"]
 `}</py-config>
 
 {/* <py-config>{`
@@ -666,7 +666,7 @@ style={{
   padding: "12px 18px 0px",
 }} key={code+"_"+sourceLanguage.id+"_"+targetLanguage.id}>
   {`
-from urdupython import (run_module, SCRIPTDIR);
+from universalpython import (run_module, SCRIPTDIR);
 from pyscript import document, display;
 import os;
 import sys;
