@@ -6,7 +6,7 @@ import Head from '@docusaurus/Head';
 import Layout from '@theme/Layout';
 import HomepageFeatures from '@site/src/components/HomepageFeatures';
 import CodeEditor from '@site/src/components/CodeEditor2';
-import { Box,TextField,MenuItem } from '@mui/material';
+import { Box,TextField,MenuItem, Button } from '@mui/material';
 import useGeoLocation from "react-ipgeolocation";
 import { useColorMode } from '@docusaurus/theme-common';
 import { EditorView } from '@codemirror/view';  
@@ -32,7 +32,7 @@ export const defaultLightThemeOption = EditorView.theme(
 
 
 import styles from './index.module.css';
-import { height, width } from '@mui/system';
+import { border, height, width } from '@mui/system';
 
 //Array of Languages on right side of code editor
 const languages = [
@@ -463,28 +463,36 @@ export default function Home() {
   </div>
 
     {/* IDE convertor button */}
-  <button style={{
-  opacity: 0.45,
-  height: isMobile ? "fit" : "100%", // Adjust height
-  width: "100%", // Adjust width
-  // backgroundColor:  isMobile ? "gray" : "transparent",
-  borderRadius: '0.4rem',
-  border: "none",
-  cursor: "pointer",
-  width: isMobile ? "100%" : "5%", // Full width on mobile
-  fontSize: "1.5rem",
-  padding: isMobile ? "10px 0" : 0, // Add padding on mobile
-  // transform: isMobile ? "rotate(90deg)" : "none", // Rotate arrow on mobile
-  margin: isMobile ? "10px 0" : 0, // Add margin on mobile
-}} onClick={()=>{
+ <Button
+  sx={{
+    // opacity: 0.45,
+    height: 'fit-content',
+    width: { xs: '100%', md: '5%' },
+    borderRadius: '0.4rem',
+    border: 'none',
+    cursor: 'pointer',
+    fontSize: '1.5rem',
+    p: { xs: '10px 0', md: 0 },
+    m: { xs: '10px 0', md: 0 },
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    // backgroundColor: 'transparent',
+    // color: 'black',
+    border: 'none',
+    '&:hover': {
+      opacity: 0.8,
+      backgroundColor: 'rgba(0, 0, 0, 0.04)'
+    },
+    transition: 'all 0.3s ease'
+  }} onClick={()=>{
     setTargetLanguage(sourceLanguage);
     setSourceLanguage(targetLanguage);
     var element = document.getElementById("python-code-editor2");
     setCode(element.innerHTML.replaceAll("<br>", "\n").replaceAll("&nbsp;", " "))
   }}>
-  {/* &#8660; */}
   &#8644;
-  </button>
+  </Button>
 
             <div
               style={{
