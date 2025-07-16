@@ -408,9 +408,9 @@ export default function Home() {
                                             ************************************************/}
   
  
-        <div style={{
+        <Box sx={{
           display: "flex",
-          flexDirection: isMobile ? "column" : "row",
+          flexDirection: { xs: "column", md: "row" },
           marginTop: "12px",
         }}>
             <div
@@ -576,7 +576,7 @@ export default function Home() {
             // theme={isDark ? "dark" : "light"}
             />
             </div>
-</div>
+</Box>
           {/* {`
 from datetime import datetime
 now = datetime.now()
