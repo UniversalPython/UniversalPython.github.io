@@ -630,7 +630,7 @@ display(now.strftime("%m/%d/%Y, %H:%M:%S"))
         }}>
   
 <py-config>{`
-packages = ["https://test-files.pythonhosted.org/packages/ee/de/c7808c5b88a4b7bb5ef26274e30fd6921d0134ea1be9852be0515489c10b/urdupython-0.1.5-py3-none-any.whl"]
+packages = ["https://test-files.pythonhosted.org/packages/49/8a/966eba36fb3a46c7728cbb6acaf85b124d8bc440d9ebec5d93e08cee147c/urdupython-0.1.6-py3-none-any.whl"]
 `}</py-config>
 
 {/* <py-config>{`
