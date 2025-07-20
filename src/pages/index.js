@@ -43,7 +43,7 @@ const languages = [
     name: "Czech",
     i18nName: "Čeština",
     fontFamily: "'Roboto Mono'",
-    toEnglishDict: "'languages/cs/cs_native.lang.yaml'",
+    toEnglishDict: "'languages/cs/default.yaml'",
   },
   {
     id: "DE",
@@ -52,7 +52,7 @@ const languages = [
     name: "German",
     i18nName: "Deutsch",
     fontFamily: "'Roboto Mono'",
-    toEnglishDict: "'languages/de/de_native.lang.yaml'",
+    toEnglishDict: "'languages/de/default.yaml'",
   },
   {
     id: "UR",
@@ -62,7 +62,7 @@ const languages = [
     i18nName: "اردو",
     direction: "rtl",
     fontFamily: "'Roboto Mono'",
-    toEnglishDict: "'languages/ur/ur_native.lang.yaml'",
+    toEnglishDict: "'languages/ur/default.yaml'",
     fontWeights: "bold",
     style: {
       direction: "rtl"
@@ -76,7 +76,7 @@ const languages = [
     name: "Hindi",
     i18nName: "Hindi",
     fontFamily: "'Roboto Mono'",
-    toEnglishDict: "'languages/hi/hi_native.lang.yaml'",
+    toEnglishDict: "'languages/hi/default.yaml'",
   },
   {
     id: "EN",
@@ -85,8 +85,36 @@ const languages = [
     name: "English",
     i18nName: "English",
     fontFamily: "'Roboto Mono'",
+  },
+  {
+    id: "GA",
+    code3: "gle",
+    code2: "ga",
+    name: "Irish",
+    i18nName: "Gaeilge",
+    fontFamily: "'Roboto Mono'",
+    toEnglishDict: "'languages/ga/default.yaml'",
+  },
+  {
+    id: "KO",
+    code3: "kor",
+    code2: "ko",
+    name: "Korean",
+    i18nName: "한국어",
+    fontFamily: "'Roboto Mono'",
+    toEnglishDict: "'languages/ko/default.yaml'",
+  },
+  {
+    id: "FR",
+    code3: "fra",
+    code2: "fr",
+    name: "French",
+    i18nName: "Français",
+    fontFamily: "'Roboto Mono'",
+    toEnglishDict: "'languages/fr/default.yaml'",
   }
 ]
+
 const IDE = ({basicSetup, ...props}) => {
 
   const { colorMode } = useColorMode();
@@ -197,8 +225,6 @@ with open("chad.txt", "r") as f:
 
 
 export default function Home() {
-
-  const isMobile = typeof window !== 'undefined' && window.innerWidth <= 1000;
 
   const {siteConfig} = useDocusaurusContext();
   
@@ -630,7 +656,7 @@ display(now.strftime("%m/%d/%Y, %H:%M:%S"))
         }}>
   
 <py-config>{`
-packages = ["https://test-files.pythonhosted.org/packages/49/8a/966eba36fb3a46c7728cbb6acaf85b124d8bc440d9ebec5d93e08cee147c/urdupython-0.1.6-py3-none-any.whl"]
+packages = ["https://test-files.pythonhosted.org/packages/6a/2b/6a3f7eded685c7445d270c6272e71b8fb5a54f994e2c25adf526b0f6ec30/urdupython-0.1.8-py3-none-any.whl"]
 `}</py-config>
 
 {/* <py-config>{`
@@ -686,7 +712,9 @@ with open('file', 'w') as sys.stdout:
     code=original_code,
     args={
               'translate': True,
-              'dictionary': os.path.join(SCRIPTDIR, ${sourceLanguage.toEnglishDict}),
+              'dictionary': '',
+              'source_language': '${sourceLanguage.code2}',
+              'file': '',
               'reverse': False,
               'keep': False,         
               'keep_only': False,
@@ -702,7 +730,9 @@ with open('file', 'w') as sys.stdout:
     code=english_code,
     args={
               'translate': True,
-              'dictionary': os.path.join(SCRIPTDIR, ${targetLanguage.toEnglishDict}),
+              'dictionary': '',
+              'source_language': '${targetLanguage.code2}',
+              'file': '',
               'reverse': True,
               'keep': False,         
               'keep_only': False,
