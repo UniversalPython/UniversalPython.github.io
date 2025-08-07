@@ -15,6 +15,7 @@ import useIsBrowser from '@docusaurus/useIsBrowser';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 
+const universalPythonPypiPackageUrl = "https://files.pythonhosted.org/packages/cc/d0/c41d8bb41655479d7f480a8db3c182586d802963613cbf029b28c5b755c5/universalpython-0.1.5-py3-none-any.whl"
 
 export const defaultLightThemeOption = EditorView.theme( 
   { 
@@ -112,7 +113,38 @@ const languages = [
     i18nName: "Français",
     fontFamily: "'Roboto Mono'",
     toEnglishDict: "'languages/fr/default.yaml'",
-  }
+  },
+  {
+    id: "TR",
+    code3: "tur",
+    code2: "tr",
+    name: "Turkish",
+    i18nName: "Türkçe",
+    fontFamily: "'Roboto Mono'",
+    toEnglishDict: "'languages/tr/default.yaml'",
+  },
+  {
+    id: "HU",
+    code3: "hun",
+    code2: "hu",
+    name: "Hungarian",
+    i18nName: "Magyar",
+    fontFamily: "'Roboto Mono'",
+    toEnglishDict: "'languages/hu/default.yaml'",
+  },
+  // Added Emoji
+  {
+    id: "EMOJI",
+    code3: "emo",
+    code2: "emoji",
+    name: "The Emoji Language",
+    i18nName: "😀😃😄😁😆",
+    fontFamily: "'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif",
+    toEnglishDict: "'languages/emoji/default.yaml'",
+    style: {
+      fontSize: "1.2em"
+    }
+  },
 ]
 
 const IDE = ({basicSetup, ...props}) => {
@@ -656,7 +688,7 @@ display(now.strftime("%m/%d/%Y, %H:%M:%S"))
         }}>
   
 <py-config>{`
-packages = ["https://test-files.pythonhosted.org/packages/6c/15/93763e4add12fb2b487ffc331f2c01c4592d58b239323bb8cd584fe8777f/urdupython-0.1.9-py3-none-any.whl"]
+packages = ["${universalPythonPypiPackageUrl}"]
 `}</py-config>
 
 {/* <py-config>{`

@@ -39,7 +39,7 @@ const myTheme = createTheme({
   });
 
 
-function CodeEditor2(props) {
+function CodeEditor(props) {
     const onChange = React.useCallback((value, viewUpdate) => {
       console.log('value:', value);
     }, []);
@@ -62,4 +62,4 @@ function CodeEditor2(props) {
       />
     );
   }
-  export default CodeEditor2;
+  export default CodeEditor;
