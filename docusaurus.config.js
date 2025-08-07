@@ -71,7 +71,7 @@ const config = {
       navbar: {
         title: 'UniversalPython',
         logo: {
-          alt: 'My Site Logo',
+          alt: 'UniversalPython Logo',
           src: 'img/docusaurus.png',
         },
         items: [
@@ -85,6 +85,11 @@ const config = {
           {
             href: 'https://github.com/universalpython/universalpython',
             label: 'GitHub',
+            position: 'right',
+          },
+          {
+            href: 'https://pypi.org/project/universalpython/',
+            label: 'PyPI',
             position: 'right',
           },
               // {
@@ -110,7 +115,7 @@ const config = {
             items: [
               {
                 label: 'GitHub Discussions',
-                href: 'https://github.com/UniversalPython/UniversalPython/discussions',
+                href: 'https://github.com/UniversalPython/UniversalPython/issues',
               },
             ],
           },

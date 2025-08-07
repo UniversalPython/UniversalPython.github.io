@@ -5,7 +5,7 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Head from '@docusaurus/Head';
 import Layout from '@theme/Layout';
 import HomepageFeatures from '@site/src/components/HomepageFeatures';
-import CodeEditor from '@site/src/components/CodeEditor2';
+import CodeEditor from '@site/src/components/CodeEditor';
 import { Box,TextField,MenuItem, Button } from '@mui/material';
 import useGeoLocation from "react-ipgeolocation";
 import { useColorMode } from '@docusaurus/theme-common';
