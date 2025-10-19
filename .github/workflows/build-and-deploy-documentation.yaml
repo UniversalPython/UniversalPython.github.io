@@ -1,27 +1,27 @@
 name: Build and Deploy documentation
 
 on:
-  pull_request:
-    types: [closed]
+  push:
+    branches:
+      - main
 
 permissions:
   contents: write
 
 jobs:
   build-and-deploy:
-    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
 
       - uses: actions/setup-python@v5
+
       - name: Install dependencies
         run: pip install sphinx sphinx_rtd_theme myst_parser
 
       - name: Build Docs
-        run: |
-          sphinx-build -b html . _build/html
+        run: sphinx-build -b html . _build/html
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
