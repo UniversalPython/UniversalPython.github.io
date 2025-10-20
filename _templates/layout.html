@@ -15,7 +15,7 @@
           {%- endfor %}
           {%- block rootrellink %}
           <li><img src="{{ pathto('_static/logo.svg', 1) }}" alt="UniversalPython logo" style="vertical-align: middle; margin-top: -1px; width: 16px; height: 16px;"></li>
-          <li><a href="#">UniversalPython</a>{{ reldelim1 }}</li>
+          <li><a href="https://universalpython.github.io/playground/">UniversalPython</a>{{ reldelim1 }}</li>
           <li class="switchers">
             <div class="language_switcher_placeholder"></div>
             <div class="version_switcher_placeholder"></div>
@@ -38,6 +38,12 @@
                 </li>
             {%- endif %}
             <li class="right">{{ themeselector() }}{{ reldelim2 }}</li>
+            <li class="right">
+                <a href="https://github.com/universalpython/" title="GitHub" target="_blank" rel="noopener">GitHub</a>{{ reldelim2 }}
+            </li>
+            <li class="right">
+                <a href="https://pypi.org/project/universalpython/" title="PyPI" target="_blank" rel="noopener">PyPI</a>{{ reldelim2 }}
+            </li>
             {% endblock %}
       </ul>
     </div>
@@ -99,7 +105,7 @@
             <span></span>
         </label>
         <span class="nav-items-wrapper">
-            <a href="#" class="nav-logo">
+            <a href="https://universalpython.github.io/playground/" class="nav-logo">
                 <img src="{{ pathto('_static/logo.svg', 1) }}" alt="UniversalPython logo">
             </a>
             <span class="version_switcher_placeholder"></span>
@@ -120,7 +126,7 @@
             {{ themeselector() }}
             {%- if logo %}
             <p class="logo">
-                <a href="#">
+                <a href="https://universalpython.github.io/playground/">
                 <img class="logo" src="{{ pathto('_static/logo.svg', 1) }}" alt="UniversalPython logo">
                 </a>
             </p>
