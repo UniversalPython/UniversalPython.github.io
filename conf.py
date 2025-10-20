@@ -27,3 +27,6 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 html_theme = 'python_docs_theme'
 html_sidebars = {}
 html_static_path = ['_static']
+
+html_title = ""
+html_short_title = ""
