@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>UniversalPython documentation</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What is UniversalPython</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
     <link rel="stylesheet" type="text/css" href="_static/classic.css?v=67a6116b" />
@@ -21,7 +21,8 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Tutorial" href="tutorial.html" /><link rel="stylesheet" href="_static/pydoctheme_dark.css" media="(prefers-color-scheme: dark)" id="pydoctheme_dark_css">
+    <link rel="next" title="Using Your Native Language" href="tut_chap2.html" />
+    <link rel="prev" title="Tutorial" href="tutorial.html" /><link rel="stylesheet" href="_static/pydoctheme_dark.css" media="(prefers-color-scheme: dark)" id="pydoctheme_dark_css">
     <link rel="shortcut icon" type="image/png" href="_static/logo.svg">
             <script type="text/javascript" src="_static/copybutton.js"></script>
             <script type="text/javascript" src="_static/menu.js"></script>
@@ -63,14 +64,30 @@
     </select>
 </label>
   <div>
-    <h4>Next topic</h4>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">What is UniversalPython</a><ul>
+<li><a class="reference internal" href="#transpiler-not-interpreter">Transpiler, Not Interpreter</a></li>
+<li><a class="reference internal" href="#why-this-matters-for-learners">Why This Matters for Learners</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
     <p class="topless"><a href="tutorial.html"
-                          title="next chapter">Tutorial</a></p>
+                          title="previous chapter">Tutorial</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="tut_chap2.html"
+                          title="next chapter">Using Your Native Language</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/index.rst.txt"
+      <li><a href="_sources/tut_chap1.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -95,8 +112,11 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="tutorial.html" title="Tutorial"
+          <a href="tut_chap2.html" title="Using Your Native Language"
              accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="tutorial.html" title="Tutorial"
+             accesskey="P">previous</a> |</li>
           <li><img src="_static/logo.svg" alt="UniversalPython logo" style="vertical-align: middle; margin-top: -1px; width: 16px; height: 16px;"></li>
           <li><a href="https://universalpython.github.io/playground/">UniversalPython</a> &#187;</li>
           <li class="switchers">
@@ -105,10 +125,11 @@
           </li>
           <!-- <li>
               
-              <a href="#"></a> &#187;
+              <a href="index.html"></a> &#187;
               
           </li> -->
-        <li class="nav-item nav-item-this"><a href="">UniversalPython documentation</a></li>
+          <li class="nav-item nav-item-1"><a href="tutorial.html" accesskey="U">Tutorial</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">What is UniversalPython</a></li>
                 <li class="right">
                     
 
@@ -144,35 +165,49 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <section id="universalpython-documentation">
-<h1>UniversalPython documentation<a class="headerlink" href="#universalpython-documentation" title="Link to this heading">¶</a></h1>
-<p>Welcome! This is the official documentation for UniversalPython.</p>
-<p><strong>Documentation sections:</strong></p>
-<div style="display: flex; flex-wrap: wrap; gap: 30px; margin-top: 1em; padding-left: 2em;">
-
-   <div style="flex: 1 1 calc(50% - 50px); min-width: 200px;">
-      <p style="margin-top: 0;">
-         <a href="tutorial.html">Tutorial</a><br>
-         <em>Start here: a tour of UniversalPython syntax and features</em>
-      </p>
-   </div>
-
-   <div style="flex: 1 1 calc(50% - 50px); min-width: 200px;">
-      <p style="margin-top: 0;">
-         <a href="supported_languages.html">Supported Languages</a><br>
-         <em>Checkout the supported languages in UniversalPython</em>
-      </p>
-   </div>
-
-   <div style="flex: 1 1 calc(50% - 50px); min-width: 200px;">
-      <p style="margin-top: 0;">
-         <a href="try_it_yourself.html">Try it Yourself</a><br>
-         <em>Try UniversalPython in your browser. No installs needed.</em>
-      </p>
-   </div>
-
-</div><div class="toctree-wrapper compound">
+  <section id="what-is-universalpython">
+<h1>What is UniversalPython<a class="headerlink" href="#what-is-universalpython" title="Link to this heading">¶</a></h1>
+<p>UniversalPython is a <strong>transpiler</strong> that allows you to write Python code using keywords and identifiers in your <strong>native human language</strong>.</p>
+<p>It is not a new language, nor a fork of <strong>Python</strong>. It is a thin compatibility layer that translates code written with localized keywords into <strong>standard</strong> <strong>Python</strong>. Your code is executed by the <strong>official</strong> <strong>Python</strong> <strong>interpreter</strong>, and behaves just like any other Python program.</p>
+<p>The goal of UniversalPython is to make programming in Python more accessible, especially for beginners and students learning in non-English environments.</p>
+<section id="transpiler-not-interpreter">
+<h2>Transpiler, Not Interpreter<a class="headerlink" href="#transpiler-not-interpreter" title="Link to this heading">¶</a></h2>
+<p>UniversalPython works by <strong>transpiling</strong> code that is, converting it from one form (Python written in a different human language) to another (standard Python source code), before running it.</p>
+<p>This means:</p>
+<ul class="simple">
+<li><p>You are still writing <strong>real Python code</strong></p></li>
+<li><p>Your code will work with <strong>standard Python tools, libraries, and environments</strong></p></li>
+<li><p>The result is indistinguishable from code written in standard Python</p></li>
+</ul>
+</section>
+<section id="why-this-matters-for-learners">
+<h2>Why This Matters for Learners<a class="headerlink" href="#why-this-matters-for-learners" title="Link to this heading">¶</a></h2>
+<p>Python is one of the most widely used languages in education. However, Python’s syntax, although simple, is still written in English.</p>
+<p>For many learners (who are not from English speaking countries), especially young students or those new to programming, the English vocabulary can be a barrier. <strong>UniversalPython</strong> helps reduce that barrier by translating code to and from the learner’s own language.</p>
+<p>This allows learners to focus on <strong>logic and structure</strong>, not foreign keywords.</p>
+<p>For example, a French learner might write:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span> something = 2
+<span class="linenos">2</span>
+<span class="linenos">3</span> si something == 1:
+<span class="linenos">4</span>   imprimer (&quot;Hello&quot;)
+<span class="linenos">5</span> sinonsi something == 2:
+<span class="linenos">6</span>   imprimer (&quot;World&quot;)
+<span class="linenos">7</span> sinon:
+<span class="linenos">8</span>   imprimer (&quot;Didn&#39;t understand...&quot;)
+</pre></div>
 </div>
+<p>Python will understand it as:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span> <span class="n">something</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="linenos">2</span>
+<span class="linenos">3</span> <span class="k">if</span> <span class="n">something</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+<span class="linenos">4</span>   <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hello&quot;</span><span class="p">)</span>
+<span class="linenos">5</span> <span class="k">elif</span> <span class="n">something</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+<span class="linenos">6</span>   <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;World&quot;</span><span class="p">)</span>
+<span class="linenos">7</span> <span class="k">else</span><span class="p">:</span>
+<span class="linenos">8</span>   <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Didn&#39;t understand...&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
 </section>
 
 
@@ -183,14 +218,30 @@
       <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
   <div>
-    <h4>Next topic</h4>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">What is UniversalPython</a><ul>
+<li><a class="reference internal" href="#transpiler-not-interpreter">Transpiler, Not Interpreter</a></li>
+<li><a class="reference internal" href="#why-this-matters-for-learners">Why This Matters for Learners</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
     <p class="topless"><a href="tutorial.html"
-                          title="next chapter">Tutorial</a></p>
+                          title="previous chapter">Tutorial</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="tut_chap2.html"
+                          title="next chapter">Using Your Native Language</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/index.rst.txt"
+      <li><a href="_sources/tut_chap1.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -215,8 +266,11 @@
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="tutorial.html" title="Tutorial"
+          <a href="tut_chap2.html" title="Using Your Native Language"
              >next</a> |</li>
+        <li class="right" >
+          <a href="tutorial.html" title="Tutorial"
+             >previous</a> |</li>
           <li><img src="_static/logo.svg" alt="UniversalPython logo" style="vertical-align: middle; margin-top: -1px; width: 16px; height: 16px;"></li>
           <li><a href="https://universalpython.github.io/playground/">UniversalPython</a> &#187;</li>
           <li class="switchers">
@@ -225,10 +279,11 @@
           </li>
           <!-- <li>
               
-              <a href="#"></a> &#187;
+              <a href="index.html"></a> &#187;
               
           </li> -->
-        <li class="nav-item nav-item-this"><a href="">UniversalPython documentation</a></li>
+          <li class="nav-item nav-item-1"><a href="tutorial.html" >Tutorial</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">What is UniversalPython</a></li>
                 <li class="right">
                     
 

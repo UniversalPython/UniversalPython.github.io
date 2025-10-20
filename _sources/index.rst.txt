@@ -6,12 +6,42 @@
 UniversalPython documentation
 =============================
 
-Add your content using ``reStructuredText`` syntax. See the
-`reStructuredText <https://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html>`_
-documentation for details.
+Welcome! This is the official documentation for UniversalPython.
+
+**Documentation sections:**
+
+.. raw:: html
+
+   <div style="display: flex; flex-wrap: wrap; gap: 30px; margin-top: 1em; padding-left: 2em;">
+
+      <div style="flex: 1 1 calc(50% - 50px); min-width: 200px;">
+         <p style="margin-top: 0;">
+            <a href="tutorial.html">Tutorial</a><br>
+            <em>Start here: a tour of UniversalPython syntax and features</em>
+         </p>
+      </div>
+
+      <div style="flex: 1 1 calc(50% - 50px); min-width: 200px;">
+         <p style="margin-top: 0;">
+            <a href="supported_languages.html">Supported Languages</a><br>
+            <em>Checkout the supported languages in UniversalPython</em>
+         </p>
+      </div>
+
+      <div style="flex: 1 1 calc(50% - 50px); min-width: 200px;">
+         <p style="margin-top: 0;">
+            <a href="try_it_yourself.html">Try it Yourself</a><br>
+            <em>Try UniversalPython in your browser. No installs needed.</em>
+         </p>
+      </div>
+
+   </div>
 
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :hidden:
 
+   tutorial
+   supported_languages
+   try_it_yourself
