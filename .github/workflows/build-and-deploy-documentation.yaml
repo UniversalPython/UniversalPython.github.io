@@ -18,7 +18,7 @@ jobs:
       - uses: actions/setup-python@v5
 
       - name: Install dependencies
-        run: pip install sphinx sphinx_rtd_theme myst_parser python-docs-theme
+        run: pip install sphinx sphinx_rtd_theme myst_parser python-docs-theme sphinx-copybutton
 
       - name: Build Docs
         run: sphinx-build -b html . _build/html
