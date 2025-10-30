@@ -23,17 +23,32 @@ Welcome! This is the official documentation for UniversalPython.
 
       <div style="flex: 1 1 calc(50% - 50px); min-width: 200px;">
          <p style="margin-top: 0;">
-            <a href="supported_languages.html">Supported Languages</a><br>
+            <a href="supported-languages.html">Supported Languages</a><br>
             <em>Checkout the supported languages in UniversalPython</em>
          </p>
       </div>
 
       <div style="flex: 1 1 calc(50% - 50px); min-width: 200px;">
          <p style="margin-top: 0;">
-            <a href="try_it_yourself.html">Try it Yourself</a><br>
+            <a href="try-it-yourself.html">Try it Yourself</a><br>
             <em>Try UniversalPython in your browser. No installs needed.</em>
          </p>
       </div>
+
+      <div style="flex: 1 1 calc(50% - 50px); min-width: 200px;">
+         <p style="margin-top: 0;">
+            <a href="setup.html">Setup</a><br>
+            <em>Install and use UniversalPython so you can get started.</em>
+         </p>
+      </div>
+
+      <div style="flex: 1 1 calc(50% - 50px); min-width: 200px;">
+         <p style="margin-top: 0;">
+            <a href="resources.html">Resources</a><br>
+            <em>Additional resources and community of UniversalPython.</em>
+         </p>
+      </div>
+
 
    </div>
 
@@ -43,5 +58,7 @@ Welcome! This is the official documentation for UniversalPython.
    :hidden:
 
    tutorial
-   supported_languages
-   try_it_yourself
+   supported-languages
+   try-it-yourself
+   setup
+   resources

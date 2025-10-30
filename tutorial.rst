@@ -29,6 +29,6 @@ We recommend reading the tutorial chapters in order. However, if you are already
 .. toctree::
    :maxdepth: 1
 
-   tut_chap1
-   tut_chap2
-   tut_chap3
+   tutorial/chapter-1
+   tutorial/chapter-2
+   tutorial/chapter-3
