@@ -2,7 +2,7 @@
 
 1. Install dependencies:
 ```bash
-pip install sphinx sphinx-copybutton python-docs-theme
+pip install sphinx sphinx-copybutton sphinxcontrib-youtube python-docs-theme
 ```
 
 2. Build:
