@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Supported Languages</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Setup</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
     <link rel="stylesheet" type="text/css" href="_static/classic.css?v=67a6116b" />
@@ -21,8 +21,8 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Try it yourself" href="try_it_yourself.html" />
-    <link rel="prev" title="Your First Program" href="tut_chap3.html" /><link rel="stylesheet" href="_static/pydoctheme_dark.css" media="(prefers-color-scheme: dark)" id="pydoctheme_dark_css">
+    <link rel="next" title="Resources" href="resources.html" />
+    <link rel="prev" title="Try it yourself" href="try-it-yourself.html" /><link rel="stylesheet" href="_static/pydoctheme_dark.css" media="(prefers-color-scheme: dark)" id="pydoctheme_dark_css">
     <link rel="shortcut icon" type="image/png" href="_static/logo.svg">
             <script type="text/javascript" src="_static/copybutton.js"></script>
             <script type="text/javascript" src="_static/menu.js"></script>
@@ -66,11 +66,21 @@
   <div>
     <h3><a href="index.html">Table of Contents</a></h3>
     <ul>
-<li><a class="reference internal" href="#">Supported Languages</a><ul>
-<li><a class="reference internal" href="#supported-human-languages">Supported Human Languages</a></li>
-<li><a class="reference internal" href="#how-it-works">How It Works</a></li>
-<li><a class="reference internal" href="#example">Example</a></li>
-<li><a class="reference internal" href="#next-steps">Next Steps</a></li>
+<li><a class="reference internal" href="#">Setup</a></li>
+<li><a class="reference internal" href="#online">Online</a><ul>
+<li><a class="reference internal" href="#benefits"><strong>Benefits</strong></a></li>
+<li><a class="reference internal" href="#limitations"><strong>Limitations</strong></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#on-your-computer">On Your Computer</a><ul>
+<li><a class="reference internal" href="#install-python-3-14-or-newer"><strong>1. Install Python 3.14 or newer</strong></a></li>
+<li><a class="reference internal" href="#verify-pip-is-installed"><strong>2. Verify pip is installed</strong></a></li>
+<li><a class="reference internal" href="#install-universalpython"><strong>3. Install UniversalPython</strong></a></li>
+<li><a class="reference internal" href="#verify-installation"><strong>4. Verify installation</strong></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#using-universalpython-in-jupyter-notebook">Using UniversalPython in Jupyter Notebook</a><ul>
+<li><a class="reference internal" href="#installation-steps"><strong>Installation Steps</strong></a></li>
 </ul>
 </li>
 </ul>
@@ -78,18 +88,18 @@
   </div>
   <div>
     <h4>Previous topic</h4>
-    <p class="topless"><a href="tut_chap3.html"
-                          title="previous chapter">Your First Program</a></p>
+    <p class="topless"><a href="try-it-yourself.html"
+                          title="previous chapter">Try it yourself</a></p>
   </div>
   <div>
     <h4>Next topic</h4>
-    <p class="topless"><a href="try_it_yourself.html"
-                          title="next chapter">Try it yourself</a></p>
+    <p class="topless"><a href="resources.html"
+                          title="next chapter">Resources</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/supported_languages.rst.txt"
+      <li><a href="_sources/setup.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -114,10 +124,10 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="try_it_yourself.html" title="Try it yourself"
+          <a href="resources.html" title="Resources"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="tut_chap3.html" title="Your First Program"
+          <a href="try-it-yourself.html" title="Try it yourself"
              accesskey="P">previous</a> |</li>
           <li><img src="_static/logo.svg" alt="UniversalPython logo" style="vertical-align: middle; margin-top: -1px; width: 16px; height: 16px;"></li>
           <li><a href="https://universalpython.github.io/playground/">UniversalPython</a> &#187;</li>
@@ -130,7 +140,7 @@
               <a href="index.html"></a> &#187;
               
           </li> -->
-        <li class="nav-item nav-item-this"><a href="">Supported Languages</a></li>
+        <li class="nav-item nav-item-this"><a href="">Setup</a></li>
                 <li class="right">
                     
 
@@ -166,50 +176,119 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <section id="supported-languages">
-<h1>Supported Languages<a class="headerlink" href="#supported-languages" title="Link to this heading">¶</a></h1>
-<p>UniversalPython lets you write Python code using your preferred human language! While Python is the programming language behind the scenes, UniversalPython is a transpiler which supports writting Python code in multiple natural languages.</p>
-<p>This allows developers worldwide to code in Python using the language they feel most comfortable with.</p>
-<section id="supported-human-languages">
-<h2>Supported Human Languages<a class="headerlink" href="#supported-human-languages" title="Link to this heading">¶</a></h2>
+  <section id="setup">
+<h1>Setup<a class="headerlink" href="#setup" title="Link to this heading">¶</a></h1>
+<p>UniversalPython can be used either <strong>online</strong> or <strong>locally on your computer</strong>.
+Choose the option that best fits your needs.</p>
+</section>
+<section id="online">
+<h1>Online<a class="headerlink" href="#online" title="Link to this heading">¶</a></h1>
+<p>You don’t need to install UniversalPython to try it out!
+Simply visit our <strong>online playground</strong>, where you can write and run UniversalPython code directly in your browser — no installation required.</p>
+<p><strong>Playground URL:</strong> <a class="reference external" href="https://universalpython.github.io/playground">https://universalpython.github.io/playground</a></p>
+<section id="benefits">
+<h2><strong>Benefits</strong><a class="headerlink" href="#benefits" title="Link to this heading">¶</a></h2>
 <ul class="simple">
-<li><p>English
-<em>Extension:</em> [placeholder for English language extension]</p></li>
-<li><p>Urdu
-<em>Extension:</em> [placeholder for Urdu language extension]</p></li>
-<li><p>Hindi
-<em>Extension:</em> [placeholder for Hindi language extension]</p></li>
-<li><p>Spanish
-<em>Extension:</em> [placeholder for Spanish language extension]</p></li>
-<li><p>…and more to come!</p></li>
+<li><p>No setup or configuration needed.</p></li>
+<li><p>Instantly try different human languages supported by UniversalPython.</p></li>
+<li><p>Great for testing syntax or quick demos.</p></li>
 </ul>
 </section>
-<section id="how-it-works">
-<h2>How It Works<a class="headerlink" href="#how-it-works" title="Link to this heading">¶</a></h2>
-<p>You write your UniversalPython programs using localized Python syntax in your chosen language. UniversalPython translates your code internally into standard Python, which is then executed as usual.</p>
+<section id="limitations">
+<h2><strong>Limitations</strong><a class="headerlink" href="#limitations" title="Link to this heading">¶</a></h2>
+<p>The online playground is designed for experimentation and has a few limitations:</p>
+<ul class="simple">
+<li><p>Limited execution time and memory.</p></li>
+<li><p>Restricted access to system commands and file operations.</p></li>
+<li><p>No ability to install additional Python packages.</p></li>
+<li><p>Temporary workspace (your code isn’t saved permanently).</p></li>
+</ul>
+<p>For full functionality, install UniversalPython locally on your computer.</p>
 </section>
-<section id="example">
-<h2>Example<a class="headerlink" href="#example" title="Link to this heading">¶</a></h2>
-<p>Here is a simple function written in English and French versions:</p>
-<p>English:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span> <span class="k">def</span> <span class="nf">hello</span><span class="p">():</span>
-<span class="linenos">2</span>     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hello, UniversalPython!&quot;</span><span class="p">)</span>
-<span class="linenos">3</span>
-<span class="linenos">4</span> <span class="n">hello</span><span class="p">()</span>
+</section>
+<section id="on-your-computer">
+<h1>On Your Computer<a class="headerlink" href="#on-your-computer" title="Link to this heading">¶</a></h1>
+<p>If you want to use UniversalPython for real projects or contribute to language packs, install it locally.</p>
+<p>Follow these steps carefully — this guide assumes no prior Python experience.</p>
+<section id="install-python-3-14-or-newer">
+<h2><strong>1. Install Python 3.14 or newer</strong><a class="headerlink" href="#install-python-3-14-or-newer" title="Link to this heading">¶</a></h2>
+<p>Download and install Python from the official website:</p>
+<ul class="simple">
+<li><p><strong>Download Page:</strong> <a class="reference external" href="https://www.python.org/downloads/">https://www.python.org/downloads/</a></p></li>
+</ul>
+<p>During installation:
+- ✅ Check the box that says <strong>“Add Python to PATH”</strong>.
+- 🪟 On Windows, use <strong>PowerShell</strong> or <strong>Command Prompt</strong> to run commands.
+- 🍎 On macOS or Linux, use <strong>Terminal</strong>.</p>
+<p>Once installed, verify Python is available by running:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>--version
 </pre></div>
 </div>
-<p>French:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span> <span class="n">déf</span> <span class="n">hello</span><span class="p">():</span>
-<span class="linenos">2</span>     <span class="n">imprimer</span><span class="p">(</span><span class="s2">&quot;Hello, UniversalPython!&quot;</span><span class="p">)</span>
-<span class="linenos">3</span>
-<span class="linenos">4</span> <span class="n">hello</span><span class="p">()</span>
+<p>You should see something like:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Python 3.14.0
 </pre></div>
 </div>
 </section>
-<section id="next-steps">
-<h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading">¶</a></h2>
-<p>For details on how to install and use language extensions, visit the corresponding language’s documentation page.</p>
-<p>If you want to contribute translations or help improve UniversalPython’s language support, check out the Community page.</p>
+<section id="verify-pip-is-installed">
+<h2><strong>2. Verify pip is installed</strong><a class="headerlink" href="#verify-pip-is-installed" title="Link to this heading">¶</a></h2>
+<p><cite>pip</cite> is Python’s package manager. It should be included with modern Python installations.</p>
+<p>Check that it’s working by running:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>--version
+</pre></div>
+</div>
+<p>If you see a version number (e.g., <cite>pip 25.0</cite>), you’re good to go.
+If not, refer to the Python documentation on installing <cite>pip</cite>:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://pip.pypa.io/en/stable/installation/">https://pip.pypa.io/en/stable/installation/</a></p></li>
+</ul>
+</section>
+<section id="install-universalpython">
+<h2><strong>3. Install UniversalPython</strong><a class="headerlink" href="#install-universalpython" title="Link to this heading">¶</a></h2>
+<p>Once Python and pip are ready, install UniversalPython by running:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>universalpython
+</pre></div>
+</div>
+<p>This will automatically download and install the latest version.</p>
+</section>
+<section id="verify-installation">
+<h2><strong>4. Verify installation</strong><a class="headerlink" href="#verify-installation" title="Link to this heading">¶</a></h2>
+<p>After installation completes, test that UniversalPython is working:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>universalpython<span class="w"> </span>--help
+</pre></div>
+</div>
+<p>If you see the UniversalPython help menu, you’re ready to start coding!</p>
+</section>
+</section>
+<section id="using-universalpython-in-jupyter-notebook">
+<h1>Using UniversalPython in Jupyter Notebook<a class="headerlink" href="#using-universalpython-in-jupyter-notebook" title="Link to this heading">¶</a></h1>
+<p>UniversalPython can also be used inside <strong>Jupyter Notebook</strong> for an interactive, notebook-based experience.</p>
+<p>We provide an official Jupyter kernel that enables you to write and execute UniversalPython code directly in a notebook.</p>
+<p><strong>Repository:</strong> <a class="reference external" href="https://github.com/UniversalPython/universalpython_kernel">https://github.com/UniversalPython/universalpython_kernel</a></p>
+<section id="installation-steps">
+<h2><strong>Installation Steps</strong><a class="headerlink" href="#installation-steps" title="Link to this heading">¶</a></h2>
+<ol class="arabic">
+<li><p>Install Jupyter if you haven’t already:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>jupyterlab
+</pre></div>
+</div>
+</li>
+<li><p>Install the UniversalPython Jupyter kernel:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>universalpython_kernel
+</pre></div>
+</div>
+</li>
+<li><p>Register the kernel with Jupyter:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>universalpython_kernel.install
+</pre></div>
+</div>
+</li>
+<li><p>Launch JupyterLab:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>jupyter<span class="w"> </span>lab
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Once open, you’ll be able to select <strong>UniversalPython</strong> as a kernel when creating a new notebook.</p>
 </section>
 </section>
 
@@ -223,11 +302,21 @@
   <div>
     <h3><a href="index.html">Table of Contents</a></h3>
     <ul>
-<li><a class="reference internal" href="#">Supported Languages</a><ul>
-<li><a class="reference internal" href="#supported-human-languages">Supported Human Languages</a></li>
-<li><a class="reference internal" href="#how-it-works">How It Works</a></li>
-<li><a class="reference internal" href="#example">Example</a></li>
-<li><a class="reference internal" href="#next-steps">Next Steps</a></li>
+<li><a class="reference internal" href="#">Setup</a></li>
+<li><a class="reference internal" href="#online">Online</a><ul>
+<li><a class="reference internal" href="#benefits"><strong>Benefits</strong></a></li>
+<li><a class="reference internal" href="#limitations"><strong>Limitations</strong></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#on-your-computer">On Your Computer</a><ul>
+<li><a class="reference internal" href="#install-python-3-14-or-newer"><strong>1. Install Python 3.14 or newer</strong></a></li>
+<li><a class="reference internal" href="#verify-pip-is-installed"><strong>2. Verify pip is installed</strong></a></li>
+<li><a class="reference internal" href="#install-universalpython"><strong>3. Install UniversalPython</strong></a></li>
+<li><a class="reference internal" href="#verify-installation"><strong>4. Verify installation</strong></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#using-universalpython-in-jupyter-notebook">Using UniversalPython in Jupyter Notebook</a><ul>
+<li><a class="reference internal" href="#installation-steps"><strong>Installation Steps</strong></a></li>
 </ul>
 </li>
 </ul>
@@ -235,18 +324,18 @@
   </div>
   <div>
     <h4>Previous topic</h4>
-    <p class="topless"><a href="tut_chap3.html"
-                          title="previous chapter">Your First Program</a></p>
+    <p class="topless"><a href="try-it-yourself.html"
+                          title="previous chapter">Try it yourself</a></p>
   </div>
   <div>
     <h4>Next topic</h4>
-    <p class="topless"><a href="try_it_yourself.html"
-                          title="next chapter">Try it yourself</a></p>
+    <p class="topless"><a href="resources.html"
+                          title="next chapter">Resources</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/supported_languages.rst.txt"
+      <li><a href="_sources/setup.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -271,10 +360,10 @@
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="try_it_yourself.html" title="Try it yourself"
+          <a href="resources.html" title="Resources"
              >next</a> |</li>
         <li class="right" >
-          <a href="tut_chap3.html" title="Your First Program"
+          <a href="try-it-yourself.html" title="Try it yourself"
              >previous</a> |</li>
           <li><img src="_static/logo.svg" alt="UniversalPython logo" style="vertical-align: middle; margin-top: -1px; width: 16px; height: 16px;"></li>
           <li><a href="https://universalpython.github.io/playground/">UniversalPython</a> &#187;</li>
@@ -287,7 +376,7 @@
               <a href="index.html"></a> &#187;
               
           </li> -->
-        <li class="nav-item nav-item-this"><a href="">Supported Languages</a></li>
+        <li class="nav-item nav-item-this"><a href="">Setup</a></li>
                 <li class="right">
                     
 

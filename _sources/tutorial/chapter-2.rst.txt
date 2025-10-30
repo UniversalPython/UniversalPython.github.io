@@ -17,8 +17,3 @@ For example:
 - And many more (see the full list in the **Supported Languages** section)
 
 Each language extension provides the necessary translations for Python keywords, built-in functions, and standard library aliases.
-
-.. image:: _static/tut_chap2.png
-   :alt: ""
-   :width: 100%
-   :align: center
