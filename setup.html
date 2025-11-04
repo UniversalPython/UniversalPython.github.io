@@ -73,12 +73,14 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#on-your-computer">On Your Computer</a><ul>
-<li><a class="reference internal" href="#install-python-3-14-or-newer"><strong>1. Install Python 3.14 or newer</strong></a></li>
-<li><a class="reference internal" href="#verify-pip-is-installed"><strong>2. Verify pip is installed</strong></a></li>
+<li><a class="reference internal" href="#install-visual-studio-code-code-editor"><strong>1. Install Visual Studio Code (Code Editor)</strong></a></li>
+<li><a class="reference internal" href="#install-python-3-14-or-newer"><strong>2. Install Python 3.14 or newer</strong></a></li>
+<li><a class="reference internal" href="#verify-pip-is-installed"><strong>3. Verify pip is installed</strong></a></li>
 <li><a class="reference internal" href="#install-universalpython"><strong>3. Install UniversalPython</strong></a></li>
 <li><a class="reference internal" href="#verify-installation"><strong>4. Verify installation</strong></a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#using-universalpython-in-visual-studio-code">Using UniversalPython in Visual Studio Code</a></li>
 <li><a class="reference internal" href="#using-universalpython-in-jupyter-notebook">Using UniversalPython in Jupyter Notebook</a><ul>
 <li><a class="reference internal" href="#installation-steps"><strong>Installation Steps</strong></a></li>
 </ul>
@@ -210,16 +212,31 @@ Simply visit our <strong>online playground</strong>, where you can write and run
 <h1>On Your Computer<a class="headerlink" href="#on-your-computer" title="Link to this heading">¶</a></h1>
 <p>If you want to use UniversalPython for real projects or contribute to language packs, install it locally.</p>
 <p>Follow these steps carefully — this guide assumes no prior Python experience.</p>
+<section id="install-visual-studio-code-code-editor">
+<h2><strong>1. Install Visual Studio Code (Code Editor)</strong><a class="headerlink" href="#install-visual-studio-code-code-editor" title="Link to this heading">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Navigate to <strong>Visual Studio Code download page</strong> <a class="reference external" href="https://code.visualstudio.com/Download">https://code.visualstudio.com/Download</a></p></li>
+</ol>
+<img alt="_static\Visual_Studio_Code_Downloads_Page.png" src="_static\Visual_Studio_Code_Downloads_Page.png" />
+<ol class="arabic simple" start="2">
+<li><p>Download the installer that matches your operating system (Windows, macOS, or Linux)</p></li>
+<li><p>Once the installer is downloaded, open it to start the installation process</p></li>
+<li><p>After installation, open <strong>Visual Studio Code</strong></p></li>
+</ol>
+</section>
 <section id="install-python-3-14-or-newer">
-<h2><strong>1. Install Python 3.14 or newer</strong><a class="headerlink" href="#install-python-3-14-or-newer" title="Link to this heading">¶</a></h2>
+<h2><strong>2. Install Python 3.14 or newer</strong><a class="headerlink" href="#install-python-3-14-or-newer" title="Link to this heading">¶</a></h2>
 <p>Download and install Python from the official website:</p>
 <ul class="simple">
 <li><p><strong>Download Page:</strong> <a class="reference external" href="https://www.python.org/downloads/">https://www.python.org/downloads/</a></p></li>
 </ul>
-<p>During installation:
-- ✅ Check the box that says <strong>“Add Python to PATH”</strong>.
-- 🪟 On Windows, use <strong>PowerShell</strong> or <strong>Command Prompt</strong> to run commands.
-- 🍎 On macOS or Linux, use <strong>Terminal</strong>.</p>
+<img alt="_static\Python_Downloads_Page.png" src="_static\Python_Downloads_Page.png" />
+<p>During installation:</p>
+<ul class="simple">
+<li><p>Check the box that says <strong>“Add Python to PATH”</strong>.</p></li>
+<li><p>On Windows, use <strong>PowerShell</strong> or <strong>Command Prompt</strong> to run commands.</p></li>
+<li><p>On macOS or Linux, use <strong>Terminal</strong>.</p></li>
+</ul>
 <p>Once installed, verify Python is available by running:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>--version
 </pre></div>
@@ -230,7 +247,7 @@ Simply visit our <strong>online playground</strong>, where you can write and run
 </div>
 </section>
 <section id="verify-pip-is-installed">
-<h2><strong>2. Verify pip is installed</strong><a class="headerlink" href="#verify-pip-is-installed" title="Link to this heading">¶</a></h2>
+<h2><strong>3. Verify pip is installed</strong><a class="headerlink" href="#verify-pip-is-installed" title="Link to this heading">¶</a></h2>
 <p><cite>pip</cite> is Python’s package manager. It should be included with modern Python installations.</p>
 <p>Check that it’s working by running:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>--version
@@ -258,6 +275,42 @@ If not, refer to the Python documentation on installing <cite>pip</cite>:</p>
 </div>
 <p>If you see the UniversalPython help menu, you’re ready to start coding!</p>
 </section>
+</section>
+<section id="using-universalpython-in-visual-studio-code">
+<h1>Using UniversalPython in Visual Studio Code<a class="headerlink" href="#using-universalpython-in-visual-studio-code" title="Link to this heading">¶</a></h1>
+<ol class="arabic">
+<li><p>Create a new folder</p></li>
+<li><p>Open the folder in Visual Studio Code</p>
+<ul>
+<li><p>Open Visual Studio Code</p></li>
+<li><p>From menu bar go to File and select Open Folder…</p>
+<blockquote>
+<div><img alt="_static\Visual_Studio_Code_File_Open_Folder.png" src="_static\Visual_Studio_Code_File_Open_Folder.png" />
+</div></blockquote>
+</li>
+<li><p>Select the folder you created</p></li>
+<li><p>Create a new file with this format: <cite>&lt;file_name&gt;.&lt;language_code&gt;.py</cite></p>
+<blockquote>
+<div><img alt="_static\Visual_Studio_Code_New_File.png" src="_static\Visual_Studio_Code_New_File.png" />
+<img alt="_static\Visual_Studio_Code_New_File_Name.png" src="_static\Visual_Studio_Code_New_File_Name.png" />
+</div></blockquote>
+</li>
+<li><p>Write some code</p>
+<blockquote>
+<div><img alt="_static\Visual_Studio_Code_New_File_Code.png" src="_static\Visual_Studio_Code_New_File_Code.png" />
+</div></blockquote>
+</li>
+<li><p>To execute the code, open the terminal and run this command: <cite>python &lt;file_name&gt;.&lt;language_code&gt;.py</cite></p>
+<blockquote>
+<div><img alt="_static\Visual_Studio_Code_Terminal.png" src="_static\Visual_Studio_Code_Terminal.png" />
+<img alt="_static\Visual_Studio_Code_New_Terminal.png" src="_static\Visual_Studio_Code_New_Terminal.png" />
+<img alt="_static\Visual_Studio_Code_Execute_In_Terminal.png" src="_static\Visual_Studio_Code_Execute_In_Terminal.png" />
+<img alt="_static\Visual_Studio_Code_Execute_In_Terminal_Output.png" src="_static\Visual_Studio_Code_Execute_In_Terminal_Output.png" />
+</div></blockquote>
+</li>
+</ul>
+</li>
+</ol>
 </section>
 <section id="using-universalpython-in-jupyter-notebook">
 <h1>Using UniversalPython in Jupyter Notebook<a class="headerlink" href="#using-universalpython-in-jupyter-notebook" title="Link to this heading">¶</a></h1>
@@ -309,12 +362,14 @@ If not, refer to the Python documentation on installing <cite>pip</cite>:</p>
 </ul>
 </li>
 <li><a class="reference internal" href="#on-your-computer">On Your Computer</a><ul>
-<li><a class="reference internal" href="#install-python-3-14-or-newer"><strong>1. Install Python 3.14 or newer</strong></a></li>
-<li><a class="reference internal" href="#verify-pip-is-installed"><strong>2. Verify pip is installed</strong></a></li>
+<li><a class="reference internal" href="#install-visual-studio-code-code-editor"><strong>1. Install Visual Studio Code (Code Editor)</strong></a></li>
+<li><a class="reference internal" href="#install-python-3-14-or-newer"><strong>2. Install Python 3.14 or newer</strong></a></li>
+<li><a class="reference internal" href="#verify-pip-is-installed"><strong>3. Verify pip is installed</strong></a></li>
 <li><a class="reference internal" href="#install-universalpython"><strong>3. Install UniversalPython</strong></a></li>
 <li><a class="reference internal" href="#verify-installation"><strong>4. Verify installation</strong></a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#using-universalpython-in-visual-studio-code">Using UniversalPython in Visual Studio Code</a></li>
 <li><a class="reference internal" href="#using-universalpython-in-jupyter-notebook">Using UniversalPython in Jupyter Notebook</a><ul>
 <li><a class="reference internal" href="#installation-steps"><strong>Installation Steps</strong></a></li>
 </ul>
