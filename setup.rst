@@ -38,17 +38,33 @@ If you want to use UniversalPython for real projects or contribute to language p
 
 Follow these steps carefully — this guide assumes no prior Python experience.
 
-**1. Install Python 3.14 or newer**
+**1. Install Visual Studio Code (Code Editor)**
+-----------------------------------------------
+
+1. Navigate to **Visual Studio Code download page** `<https://code.visualstudio.com/Download>`_
+
+.. image:: _static\\Visual_Studio_Code_Downloads_Page.png
+
+2.  Download the installer that matches your operating system (Windows, macOS, or Linux)
+
+3. Once the installer is downloaded, open it to start the installation process
+
+4. After installation, open **Visual Studio Code**
+
+**2. Install Python 3.14 or newer**
 -----------------------------------
 
 Download and install Python from the official website:
 
 - **Download Page:** `<https://www.python.org/downloads/>`_
 
+.. image:: _static\\Python_Downloads_Page.png
+
 During installation:
-- ✅ Check the box that says **"Add Python to PATH"**.
-- 🪟 On Windows, use **PowerShell** or **Command Prompt** to run commands.
-- 🍎 On macOS or Linux, use **Terminal**.
+
+- Check the box that says **"Add Python to PATH"**.
+- On Windows, use **PowerShell** or **Command Prompt** to run commands.
+- On macOS or Linux, use **Terminal**.
 
 Once installed, verify Python is available by running:
 
@@ -62,7 +78,7 @@ You should see something like:
 
    Python 3.14.0
 
-**2. Verify pip is installed**
+**3. Verify pip is installed**
 ------------------------------
 
 `pip` is Python’s package manager. It should be included with modern Python installations.
@@ -99,6 +115,36 @@ After installation completes, test that UniversalPython is working:
    universalpython --help
 
 If you see the UniversalPython help menu, you’re ready to start coding!
+
+Using UniversalPython in Visual Studio Code
+===========================================
+
+1. Create a new folder
+
+2. Open the folder in Visual Studio Code
+
+   - Open Visual Studio Code
+   - From menu bar go to File and select Open Folder...
+   
+      .. image:: _static\\Visual_Studio_Code_File_Open_Folder.png
+
+   - Select the folder you created
+   - Create a new file with this format: `<file_name>.<language_code>.py`
+
+      .. image:: _static\\Visual_Studio_Code_New_File.png
+      .. image:: _static\\Visual_Studio_Code_New_File_Name.png
+
+   - Write some code
+
+      .. image:: _static\\Visual_Studio_Code_New_File_Code.png
+   
+   - To execute the code, open the terminal and run this command: `python <file_name>.<language_code>.py`
+
+      .. image:: _static\\Visual_Studio_Code_Terminal.png
+      .. image:: _static\\Visual_Studio_Code_New_Terminal.png
+      .. image:: _static\\Visual_Studio_Code_Execute_In_Terminal.png
+      .. image:: _static\\Visual_Studio_Code_Execute_In_Terminal_Output.png
+      
 
 Using UniversalPython in Jupyter Notebook
 =========================================
