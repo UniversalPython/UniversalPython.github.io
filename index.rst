@@ -6,7 +6,7 @@
 UniversalPython documentation
 =============================
 
-Welcome! This is the official documentation for UniversalPython.
+Welcome! UniversalPython is a multilingual programming language built on top of Python that lets you write code once and see how it looks in other supported languages. It’s made for beginners and curious learners who want to explore and compare programming languages in a simple, hands-on way.
 
 **Documentation sections:**
 

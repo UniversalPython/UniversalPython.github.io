@@ -1,10 +1,6 @@
 Tutorial
 ========
 
-.. tip::
-    This tutorial introduces you to UniversalPython, a tool that helps learners write Python code using keywords and identifiers in their native human language.
-
-
 This tutorial introduces you to **UniversalPython**, a tool that helps learners write Python code using keywords and identifiers in their **native human language**.
 
 UniversalPython is **not a new language**. It is a **transpiler**, a small layer that translates code written in other natural languages into standard Python. This allows students to begin learning Python concepts using familiar vocabulary.
@@ -19,7 +15,7 @@ This tutorial is written for:
 To follow this tutorial, you will need:
 
 - Python 3.4 or later
-- A Terminal or Jupiter Notebook
+- A Terminal or Jupyter Notebook
 - Optionally, access to the `Online Playground <https://universalpython.github.io/playground/>`_ for running code in the browser
 
 We recommend reading the tutorial chapters in order. However, if you are already familiar with Python and only want to understand UniversalPython’s features, you may skip ahead to the Using Your Native Language in Python chapter.

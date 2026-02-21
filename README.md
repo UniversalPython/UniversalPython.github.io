@@ -9,5 +9,9 @@ pip install sphinx sphinx-copybutton sphinxcontrib-youtube python-docs-theme
 ```bash
 make
 ```
+or
+```bash
+make html
+```
 
 3. Live Preview with VSCode can help you see things live.
